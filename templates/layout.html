@@ -48,6 +48,8 @@
 
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
         }
 
         body {
@@ -56,6 +58,20 @@
             color: var(--text-dark);
             line-height: 1.7;
             overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        /* Prevent all elements from causing horizontal overflow */
+        * {
+            max-width: 100%;
+        }
+
+        img,
+        video,
+        iframe {
+            max-width: 100%;
+            height: auto;
         }
 
         /* Typography */
@@ -445,7 +461,7 @@
 
         @media (max-width: 768px) {
             .navbar {
-                padding: 15px 30px;
+                padding: 15px 20px;
             }
 
             .nav-links {
