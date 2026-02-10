@@ -1,0 +1,232 @@
+{% extends "layout.html" %}
+
+{% block styles %}
+<style>
+    /* ============================================
+       SERVICES PAGE STYLES
+       ============================================ */
+
+    .services-intro {
+        padding: 120px 0;
+        background: var(--cream-bg);
+        text-align: center;
+    }
+
+    .services-intro .section-title {
+        font-size: 5rem;
+        display: inline-block;
+    }
+
+    .services-intro .script-subtitle {
+        font-family: var(--font-script);
+        font-size: 2rem;
+        color: var(--gold-accent);
+        display: block;
+        margin-top: 10px;
+    }
+
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0;
+        margin-top: 80px;
+    }
+
+    .service-card {
+        position: relative;
+        min-height: 450px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 50px;
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .service-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to top, rgba(10, 22, 40, 0.95), rgba(10, 22, 40, 0.3));
+        transition: background 0.4s ease;
+    }
+
+    .service-card:hover::before {
+        background: linear-gradient(to top, rgba(10, 22, 40, 0.98), rgba(10, 22, 40, 0.5));
+    }
+
+    .service-card-content {
+        position: relative;
+        z-index: 1;
+        color: var(--cream-light);
+    }
+
+    .service-card h3 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .service-card p {
+        font-size: 0.9rem;
+        line-height: 1.8;
+        opacity: 0.85;
+        max-width: 500px;
+    }
+
+    /* List Layout (if used) */
+    .services-list-section {
+        background: var(--cream-bg);
+    }
+
+    .service-row {
+        display: flex;
+        align-items: center;
+        gap: 50px;
+        margin-bottom: 80px;
+    }
+
+    .services-list-section .service-row:last-child {
+        margin-bottom: 0;
+    }
+
+    .service-row.reverse {
+        flex-direction: row-reverse;
+    }
+
+    .service-text {
+        flex: 1;
+    }
+
+    .service-img {
+        flex: 1;
+    }
+
+    .service-img img {
+        width: 100%;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .service-img img:hover {
+        transform: translateY(-5px);
+    }
+
+    .service-text h3 {
+        font-family: var(--font-heading);
+        font-size: 2rem;
+        color: var(--navy-primary);
+        margin-bottom: 20px;
+    }
+
+    .service-text p {
+        font-size: 1.1rem;
+        color: var(--text-dark);
+        line-height: 1.7;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+        .services-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .service-row {
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .service-row.reverse {
+            flex-direction: column;
+        }
+
+        .services-intro .section-title {
+            font-size: 3rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block title %}Our Services - Audionix Engineers LLP{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<header class="page-header services-header">
+    <div class="container">
+        <h1>Our Services</h1>
+        <p class="subtitle">Where sound, sight and sense come together.</p>
+    </div>
+</header>
+
+<!-- Services List -->
+<section class="section services-list-section">
+    <div class="container">
+        <div class="service-row">
+            <div class="service-text">
+                <h3>AV System Design & Consulting</h3>
+                <p>End-to-end design for auditoriums, lecture halls, boardrooms, convention centres and public spaces.
+                    From requirement mapping and schematics to BoQs, drawings and tender-ready documents, everything
+                    needed to build a clear, reliable AV system.</p>
+            </div>
+            <div class="service-img">
+                <img src="{{ url_for('static', filename='images/speakers_with_screen.jpg') }}" alt="AV System Design">
+            </div>
+        </div>
+
+        <div class="service-row reverse">
+            <div class="service-text">
+                <h3>Room Acoustics</h3>
+                <p>End-to-end acoustic planning including analysis, material selection and layout optimisation to
+                    deliver crisp speech clarity, balanced sound and an environment tailored to its purpose.</p>
+            </div>
+            <div class="service-img">
+                <img src="{{ url_for('static', filename='images/Auditorium.jpg') }}" alt="Room Acoustics">
+            </div>
+        </div>
+
+        <div class="service-row">
+            <div class="service-text">
+                <h3>Architectural & Stage Lighting Design</h3>
+                <p>Thoughtfully crafted lighting solutions that elevate both function and ambience. Ideal for
+                    auditoriums, multipurpose halls and performance spaces, with a focus on comfort, visibility and
+                    energy efficiency.</p>
+            </div>
+            <div class="service-img">
+                <img src="{{ url_for('static', filename='images/a_image_stage_spotlight.jpg') }}" alt="Stage Lighting">
+            </div>
+        </div>
+
+        <div class="service-row reverse">
+            <div class="service-text">
+                <h3>Technical Review & Value Engineering</h3>
+                <p>Independent audits of OEM or contractor proposals to ensure accuracy, fairness and performance. We
+                    identify gaps, remove unnecessary costs and strengthen the overall system design.</p>
+            </div>
+            <div class="service-img">
+                <img src="{{ url_for('static', filename='images/a_tree_in_hand_with_some_coins_in_side.jpg') }}"
+                    alt="Value Engineering">
+            </div>
+        </div>
+
+        <div class="service-row">
+            <div class="service-text">
+                <h3>Information & Communication Technology</h3>
+                <p>Planning and design of IT and networking infrastructure for new and existing buildings, ensuring
+                    seamless connectivity, efficient communication and future-ready systems.</p>
+            </div>
+            <div class="service-img">
+                <img src="{{ url_for('static', filename='images/ict_infrastructure.jpeg') }}" alt="ICT Infrastructure">
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

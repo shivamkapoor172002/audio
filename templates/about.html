@@ -1,0 +1,229 @@
+{% extends "layout.html" %}
+
+{% block styles %}
+<style>
+    /* ============================================
+       ABOUT PAGE STYLES
+       ============================================ */
+
+    /* About Intro */
+    .about-intro {
+        background: #fff;
+    }
+
+    .about-intro h2 {
+        font-family: var(--font-heading);
+        color: var(--navy-primary);
+        margin-bottom: 25px;
+        font-size: 2rem;
+    }
+
+    .about-intro p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: var(--text-dark);
+        margin-bottom: 20px;
+    }
+
+    .about-intro .row {
+        align-items: center;
+    }
+
+    .result-box {
+        background: rgba(201, 169, 98, 0.1);
+        border-left: 4px solid var(--gold-accent);
+        padding: 25px;
+        margin-top: 30px;
+    }
+
+    .result-box h3 {
+        font-family: var(--font-heading);
+        color: var(--navy-primary);
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+    }
+
+    /* Founder Section specific styles */
+    .founder-section {
+        padding: 80px 0;
+    }
+
+    .founder-section .section-title {
+        font-size: 2.5rem;
+        margin-bottom: 50px;
+    }
+
+    .founder-section .founder-img img {
+        border: 5px solid var(--gold-accent);
+        width: 283px;
+        height: 572px;
+        object-fit: cover;
+    }
+
+    .founder-section h3 {
+        font-family: var(--font-heading);
+        color: var(--navy-primary);
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+    }
+
+    .text-gold {
+        color: var(--gold-accent) !important;
+    }
+
+    /* Advantage Section (About variant) */
+    .advantage-section {
+        background: #fff;
+        padding-bottom: 80px;
+    }
+
+    .advantage-section .section-title {
+        font-size: 2.5rem;
+        margin-bottom: 50px;
+    }
+
+    .advantage-section h4 {
+        font-family: var(--font-heading);
+        color: var(--navy-primary);
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+    }
+
+    .check-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 20px;
+    }
+
+    .check-list li {
+        margin-bottom: 15px;
+        padding-left: 25px;
+        position: relative;
+        font-size: 1.05rem;
+    }
+
+    .check-list li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: var(--gold-accent);
+        font-weight: bold;
+    }
+
+    /* About Images Layout */
+    .about-images {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .about-images img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .about-images img:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Script Font Class */
+    .script-font {
+        font-family: var(--font-script);
+        font-weight: 400;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+        .about-images {
+            margin-top: 40px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .founder-section .row {
+            text-align: center;
+        }
+
+        .founder-img {
+            margin-bottom: 30px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block title %}About Us - Audionix Engineers LLP{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<header class="page-header about-header">
+    <div class="container">
+        <h1>Who We Are</h1>
+        <p class="subtitle">Experiences, Amplified.</p>
+    </div>
+</header>
+
+<!-- Who We Are Section -->
+<section class="section about-intro">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>Independent Consulting for Professional AV, Acoustics & Lighting</h2>
+                <p><strong>AUDIONIX ENGINEERS LLP</strong> is an independent consultancy that designs professional AV,
+                    acoustics and lighting systems for government, institutional and corporate spaces across India. With
+                    deep on-ground experience and a clear, vendor-neutral approach, we bridge the gap between client
+                    expectations, real-world site challenges and rapidly evolving technology.</p>
+                <div class="result-box">
+                    <h3>The Result?</h3>
+                    <p>Solutions that are reliable, scalable and effortless to operate, built to look good on paper, and
+                        work even better in the real world.</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="about-images">
+                    <img src="{{ url_for('static', filename='images/auditorium_view.jpg') }}" alt="AV Installation"
+                        class="img-fluid rounded mb-3">
+                    <img src="{{ url_for('static', filename='images/Auditorium_view_eagel_eye.jpg') }}"
+                        alt="Acoustic Panels" class="img-fluid rounded">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Founder Section -->
+<section class="section founder-section bg-light">
+    <div class="container">
+        <h2 class="section-title text-center">About Our Founder</h2>
+        <div class="row align-items-center">
+            <div class="col-md-4">
+                <div class="founder-img">
+                    <!-- Placeholder for founder image if available or generic professional image -->
+                    <img src="{{ url_for('static', filename='images/founder_owner_image_vineet.jpg') }}"
+                        alt="Vineet Tripathi" class="img-fluid rounded-circle shadow">
+                </div>
+            </div>
+            <div class="col-md-8">
+                <h3>Vineet Tripathi</h3>
+                <p class="lead">With over <strong>10+ years of experience</strong> in India's professional AV industry.
+                </p>
+                <p>Vineet brings deep technical expertise and hands-on experience from working with global leaders like
+                    <strong>Bose Professional</strong> and <strong>Harman International</strong>.
+                </p>
+                <p>His career spans complex, large-format projects across government, institutional and corporate
+                    environments, giving him a clear understanding of real-site challenges, tendering processes and
+                    performance expectations.</p>
+
+                <h4 class="mt-4 script-font text-gold">Led With Precision</h4>
+                <p>From high-stakes courtrooms and national institutions to smart cities and sacred spaces, Vineet
+                    Tripathi’s portfolio spans some of India’s most demanding environments. Each project reflects his
+                    ability to deliver AV, acoustics and lighting solutions that perform flawlessly, no matter the
+                    scale, complexity or setting.</p>
+            </div>
+        </div>
+
+</section>
+{% endblock %}

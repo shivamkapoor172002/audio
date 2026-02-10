@@ -1,0 +1,331 @@
+{% extends "layout.html" %}
+
+{% block styles %}
+<style>
+    /* ============================================
+       CONTACT PAGE STYLES
+       ============================================ */
+
+    .contact {
+        padding: 100px 0;
+        background: var(--cream-bg);
+        text-align: center;
+    }
+
+    .contact .tagline {
+        font-size: 2rem;
+        color: var(--navy-primary);
+        margin-bottom: 50px;
+        font-weight: 300;
+    }
+
+    .contact-info {
+        display: flex;
+        justify-content: center;
+        gap: 80px;
+        margin-bottom: 50px;
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .contact-item .icon {
+        width: 50px;
+        height: 50px;
+        background: var(--navy-primary);
+        color: var(--cream-light);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+    }
+
+    .contact-item a {
+        text-decoration: none;
+        color: var(--navy-primary);
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: color 0.3s ease;
+    }
+
+    .contact-item a:hover {
+        color: var(--gold-accent);
+    }
+
+    .cta-button {
+        display: inline-block;
+        padding: 18px 50px;
+        background: var(--navy-primary);
+        color: var(--cream-light);
+        text-decoration: none;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+    .cta-button:hover {
+        background: var(--navy-dark);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(26, 43, 90, 0.3);
+    }
+
+    /* Contact Details Section */
+    .contact-details h3 {
+        font-family: var(--font-heading);
+        color: var(--navy-primary);
+        margin-bottom: 15px;
+    }
+
+    .contact-detail-item {
+        display: flex;
+        gap: 15px;
+        margin-top: 25px;
+    }
+
+    .contact-detail-item .icon {
+        width: 40px;
+        height: 40px;
+        background: rgba(201, 169, 98, 0.1);
+        color: var(--navy-primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+    }
+
+    .contact-detail-item .info h5 {
+        margin: 0 0 5px;
+        color: var(--navy-primary);
+        font-weight: 600;
+    }
+
+    .contact-detail-item .info a,
+    .contact-detail-item .info p {
+        color: var(--text-dark);
+        text-decoration: none;
+        margin: 0;
+    }
+
+    /* Contact Form */
+    .contact-form-container {
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-alert {
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        font-size: 0.95rem;
+    }
+
+    .form-alert.success {
+        background: rgba(25, 135, 84, 0.1);
+        color: #146c43;
+        border: 1px solid rgba(25, 135, 84, 0.3);
+    }
+
+    .form-alert.error {
+        background: rgba(220, 53, 69, 0.1);
+        color: #b02a37;
+        border: 1px solid rgba(220, 53, 69, 0.3);
+    }
+
+    .form-alert.error ul {
+        margin: 8px 0 0;
+        padding-left: 18px;
+    }
+
+    .contact-form-container h3 {
+        font-family: var(--font-heading);
+        color: var(--navy-primary);
+        margin-bottom: 25px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-family: var(--font-body);
+        font-size: 1rem;
+        margin-bottom: 5px;
+        transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: var(--navy-primary);
+    }
+
+    .contact-form label {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--navy-primary);
+        font-weight: 500;
+        font-size: 0.95rem;
+    }
+
+    .submit-btn {
+        background: var(--navy-primary);
+        color: #fff;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 600;
+        margin-top: 15px;
+        transition: all 0.3s ease;
+    }
+
+    .submit-btn:hover {
+        background: var(--gold-accent);
+        transform: translateY(-2px);
+    }
+
+    /* Map Section */
+    .contact-page-section {
+        background: var(--cream-bg);
+    }
+
+    .map-section {
+        width: 100%;
+        height: 450px;
+        line-height: 0;
+    }
+
+    .map-section iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .contact-info {
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .contact-form-container {
+            margin-top: 40px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block title %}Contact Us - Audionix Engineers LLP{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<header class="page-header contact-header">
+    <div class="container">
+        <h1>Contact Us</h1>
+        <p class="subtitle">Let's engineer something exceptional together.</p>
+    </div>
+</header>
+
+<!-- Contact Content -->
+<section class="section contact-page-section">
+    <div class="container">
+        <div class="row">
+            <!-- Contact Info -->
+            <div class="col-lg-5 mb-5 mb-lg-0">
+                <div class="contact-details">
+                    <h3>Get In Touch</h3>
+                    <p class="mb-4">Ready to start your project? Reach out to us for a consultation or to learn more
+                        about our services.</p>
+
+                    <div class="contact-detail-item">
+                        <div class="icon">✉</div>
+                        <div class="info">
+                            <h5>Email Us</h5>
+                            <a href="mailto:INFO@AUDIONIXENGINEERS.COM">INFO@AUDIONIXENGINEERS.COM</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-detail-item">
+                        <div class="icon">📞</div>
+                        <div class="info">
+                            <h5>Call Us</h5>
+                            <a href="tel:+919999762624">+91 99997 62624</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-detail-item">
+                        <div class="icon">📍</div>
+                        <div class="info">
+                            <h5>Location</h5>
+                            <p>New Delhi, India</p>
+                            <p class="small text-muted">Serving clients pan-India</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="col-lg-7">
+                <div class="contact-form-container">
+                    <h3>Send us a Message</h3>
+                    {% if success %}
+                    <div class="form-alert success">
+                        Thanks for reaching out. We will get back to you within 1-2 business days.
+                    </div>
+                    {% elif errors %}
+                    <div class="form-alert error">
+                        <p>Please fix the following and try again:</p>
+                        <ul>
+                            {% for error in errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <form action="/contact" method="post" class="contact-form" novalidate>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="name" class="form-control" placeholder="John Doe"
+                                    value="{{ form.name }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email">Your Email</label>
+                                <input type="email" id="email" name="email" class="form-control"
+                                    placeholder="john@example.com" value="{{ form.email }}" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" class="form-control"
+                                placeholder="Project Inquiry" value="{{ form.subject }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message">Message</label>
+                            <textarea id="message" rows="5" class="form-control" placeholder="How can we help you?"
+                                name="message" required>{{ form.message }}</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map Section -->
+<section class="map-section">
+    <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d224345.83923192776!2d77.0688975472578!3d28.52728034389636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5b347eb62d%3A0x8683e95655079a40!2sNew%20Delhi%2C%20Delhi%2C%20India!5e0!3m2!1sen!2sus!4v1645604470921!5m2!1sen!2sus"
+        width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+</section>
+
+{% endblock %}
