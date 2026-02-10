@@ -741,7 +741,30 @@
         color: var(--cream-light);
     }
 
-    /* Responsive */
+    /* Responsive Design - Mobile First Approach */
+
+    /* 14-inch Laptops (1366px-1440px) */
+    @media (max-width: 1440px) {
+        .advantage-central-layout {
+            grid-template-columns: 1fr 350px 1fr;
+            max-width: 1200px;
+        }
+
+        .image-placeholder-circle {
+            width: 350px;
+            height: 350px;
+        }
+
+        .point-content h4 {
+            font-size: 1.2rem;
+        }
+
+        .point-content p {
+            font-size: 1rem;
+        }
+    }
+
+    /* Tablets & Small Laptops (992px and below) */
     @media (max-width: 992px) {
         .hero-headline {
             font-size: 3rem;
@@ -767,11 +790,46 @@
         .advantage-columns {
             grid-template-columns: 1fr;
         }
+
+        /* Advantage Section - Stack Vertically */
+        .advantage-central-layout {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        .adv-side-col {
+            order: 2;
+        }
+
+        .adv-center-col {
+            order: 1;
+        }
+
+        .left-col {
+            order: 3;
+        }
+
+        .image-placeholder-circle {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+
+        .adv-point {
+            justify-content: flex-start;
+        }
     }
 
+    /* Mobile Devices (768px and below) */
     @media (max-width: 768px) {
         .hero-headline {
             font-size: 2.5rem;
+            padding: 0 20px;
+        }
+
+        .hero-subtext {
+            font-size: 1rem;
+            padding: 0 20px;
         }
 
         .hero-stats-inline {
@@ -786,6 +844,88 @@
 
         .section-heading {
             font-size: 2rem;
+        }
+
+        .section-label {
+            font-size: 1.2rem;
+        }
+
+        .advantage-premium {
+            padding: 60px 0;
+        }
+
+        .advantage-header {
+            margin-bottom: 40px;
+        }
+
+        .image-placeholder-circle {
+            width: 250px;
+            height: 250px;
+        }
+
+        .point-content h4 {
+            font-size: 1.1rem;
+        }
+
+        .point-content p {
+            font-size: 0.95rem;
+        }
+
+        .sector-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .container {
+            padding: 0 20px;
+        }
+    }
+
+    /* Small Mobile Devices (480px and below) */
+    @media (max-width: 480px) {
+        .hero-headline {
+            font-size: 2rem;
+        }
+
+        .section-heading {
+            font-size: 1.75rem;
+        }
+
+        .section-label {
+            font-size: 1rem;
+        }
+
+        .image-placeholder-circle {
+            width: 200px;
+            height: 200px;
+        }
+
+        .point-content h4 {
+            font-size: 1rem;
+        }
+
+        .point-content p {
+            font-size: 0.9rem;
+        }
+
+        .advantage-premium {
+            padding: 40px 0;
+        }
+
+        .btn-corporate {
+            padding: 12px 24px;
+            font-size: 0.85rem;
+        }
+
+        .hero-actions {
+            flex-direction: column;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .btn-gold,
+        .btn-outline-light {
+            width: 100%;
+            text-align: center;
         }
     }
 </style>
