@@ -470,43 +470,28 @@
             <!-- Contact Form -->
             <div class="col-lg-7">
                 <div class="contact-form-container">
-                    <h3>Send us a Message</h3>
-                    {% if success %}
-                    <div class="form-alert success">
-                        Thanks for reaching out. We will get back to you within 1-2 business days.
-                    </div>
-                    {% elif errors %}
-                    <div class="form-alert error">
-                        <p>Please fix the following and try again:</p>
-                        <ul>
-                            {% for error in errors %}
-                            <li>{{ error }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    {% endif %}
-                    <form action="/contact" method="post" class="contact-form" novalidate>
+                    <form action="https://formspree.io/f/mbdagqnw" method="POST" class="contact-form">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="name">Your Name</label>
-                                <input type="text" id="name" name="name" class="form-control" placeholder=""
-                                    value="{{ form.name }}" required>
+                                <input type="text" id="name" name="name" class="form-control" placeholder="Full Name"
+                                    required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="email">Your Email</label>
-                                <input type="email" id="email" name="email" class="form-control" placeholder=""
-                                    value="{{ form.email }}" required>
+                                <input type="email" id="email" name="email" class="form-control"
+                                    placeholder="Email Address" required>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" class="form-control" placeholder=""
-                                value="{{ form.subject }}" required>
+                            <input type="text" id="subject" name="subject" class="form-control"
+                                placeholder="Project Inquiry" required>
                         </div>
                         <div class="mb-3">
                             <label for="message">Message</label>
                             <textarea id="message" rows="5" class="form-control" placeholder="How can we help you?"
-                                name="message" required>{{ form.message }}</textarea>
+                                name="message" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary submit-btn">Send Message</button>
                     </form>

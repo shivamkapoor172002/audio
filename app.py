@@ -18,32 +18,9 @@ def services():
 def process():
     return render_template('process.html')
 
-@app.route('/contact', methods=['GET', 'POST'])
+@app.route('/contact')
 def contact():
-    form = {"name": "", "email": "", "subject": "", "message": ""}
-    errors = []
-    success = False
-
-    if request.method == 'POST':
-        form["name"] = request.form.get('name', '').strip()
-        form["email"] = request.form.get('email', '').strip()
-        form["subject"] = request.form.get('subject', '').strip()
-        form["message"] = request.form.get('message', '').strip()
-
-        if not form["name"]:
-            errors.append("Name is required.")
-        if not form["email"] or "@" not in form["email"]:
-            errors.append("A valid email is required.")
-        if not form["subject"]:
-            errors.append("Subject is required.")
-        if not form["message"]:
-            errors.append("Message is required.")
-
-        if not errors:
-            success = True
-            form = {"name": "", "email": "", "subject": "", "message": ""}
-
-    return render_template('contact.html', form=form, errors=errors, success=success)
+    return render_template('contact.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
