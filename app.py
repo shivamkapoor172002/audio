@@ -14,6 +14,10 @@ def about():
 def services():
     return render_template('services.html')
 
+@app.route('/process')
+def process():
+    return render_template('process.html')
+
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     form = {"name": "", "email": "", "subject": "", "message": ""}

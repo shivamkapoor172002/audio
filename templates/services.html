@@ -3,18 +3,32 @@
 {% block styles %}
 <style>
     /* ============================================
-       SERVICES PAGE STYLES
+       SERVICES PAGE STYLES - FRESH MODERN DESIGN
        ============================================ */
 
     .services-intro {
         padding: 120px 0;
-        background: var(--cream-bg);
+        background: linear-gradient(135deg, var(--cream-bg) 0%, #f5f2eb 100%);
         text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .services-intro::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(196, 160, 82, 0.08) 0%, transparent 70%);
+        border-radius: 50%;
     }
 
     .services-intro .section-title {
         font-size: 5rem;
         display: inline-block;
+        position: relative;
     }
 
     .services-intro .script-subtitle {
@@ -25,70 +39,47 @@
         margin-top: 10px;
     }
 
-    .services-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0;
-        margin-top: 80px;
-    }
-
-    .service-card {
-        position: relative;
-        min-height: 450px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        padding: 50px;
-        overflow: hidden;
-        background-size: cover;
-        background-position: center;
-    }
-
-    .service-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(to top, rgba(10, 22, 40, 0.95), rgba(10, 22, 40, 0.3));
-        transition: background 0.4s ease;
-    }
-
-    .service-card:hover::before {
-        background: linear-gradient(to top, rgba(10, 22, 40, 0.98), rgba(10, 22, 40, 0.5));
-    }
-
-    .service-card-content {
-        position: relative;
-        z-index: 1;
-        color: var(--cream-light);
-    }
-
-    .service-card h3 {
-        font-size: 1.8rem;
-        margin-bottom: 20px;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-    }
-
-    .service-card p {
-        font-size: 0.9rem;
-        line-height: 1.8;
-        opacity: 0.85;
-        max-width: 500px;
-    }
-
-    /* List Layout (if used) */
+    /* List Layout - Enhanced */
     .services-list-section {
         background: var(--cream-bg);
+        padding: 80px 0;
     }
 
     .service-row {
         display: flex;
         align-items: center;
-        gap: 50px;
-        margin-bottom: 80px;
+        gap: 60px;
+        margin-bottom: 100px;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.8s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .service-row:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .service-row:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .service-row:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .service-row:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+
+    .service-row:nth-child(5) {
+        animation-delay: 0.5s;
     }
 
     .services-list-section .service-row:last-child {
@@ -101,34 +92,106 @@
 
     .service-text {
         flex: 1;
+        position: relative;
+        padding: 30px 0;
+    }
+
+    .service-text::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--gold-accent) 0%, transparent 100%);
+        border-radius: 2px;
+    }
+
+    .service-row.reverse .service-text::before {
+        left: auto;
+        right: 0;
+        background: linear-gradient(270deg, var(--gold-accent) 0%, transparent 100%);
     }
 
     .service-img {
         flex: 1;
+        position: relative;
+    }
+
+    .service-img::before {
+        content: '';
+        position: absolute;
+        top: -15px;
+        left: -15px;
+        right: 15px;
+        bottom: 15px;
+        background: linear-gradient(135deg, rgba(196, 160, 82, 0.15) 0%, rgba(196, 160, 82, 0.05) 100%);
+        border-radius: 12px;
+        z-index: 0;
+    }
+
+    .service-row.reverse .service-img::before {
+        left: 15px;
+        right: -15px;
+        background: linear-gradient(225deg, rgba(196, 160, 82, 0.15) 0%, rgba(196, 160, 82, 0.05) 100%);
     }
 
     .service-img img {
+        position: relative;
+        z-index: 1;
         width: 100%;
-        border-radius: 8px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
+        border-radius: 12px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        object-fit: cover;
+        height: 350px;
     }
 
     .service-img img:hover {
-        transform: translateY(-5px);
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
     }
 
     .service-text h3 {
         font-family: var(--font-heading);
-        font-size: 2rem;
+        font-size: 2.2rem;
         color: var(--navy-primary);
         margin-bottom: 20px;
+        margin-top: 15px;
+        line-height: 1.2;
+        position: relative;
+        transition: color 0.3s ease;
+    }
+
+    .service-row:hover .service-text h3 {
+        color: var(--navy-dark);
     }
 
     .service-text p {
         font-size: 1.1rem;
-        color: var(--text-dark);
-        line-height: 1.7;
+        color: #555;
+        line-height: 1.8;
+        max-width: 550px;
+    }
+
+    /* Decorative Number Badge */
+    .service-text::after {
+        content: attr(data-number);
+        position: absolute;
+        right: -20px;
+        top: -10px;
+        font-family: var(--font-heading);
+        font-size: 8rem;
+        font-weight: 700;
+        color: rgba(196, 160, 82, 0.06);
+        line-height: 1;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .service-row.reverse .service-text::after {
+        right: auto;
+        left: -20px;
     }
 
     /* Responsive */
@@ -136,12 +199,21 @@
         .services-grid {
             grid-template-columns: 1fr;
         }
+
+        .service-text h3 {
+            font-size: 1.9rem;
+        }
+
+        .service-img img {
+            height: 300px;
+        }
     }
 
     @media (max-width: 768px) {
         .service-row {
             flex-direction: column;
-            gap: 30px;
+            gap: 40px;
+            margin-bottom: 70px;
         }
 
         .service-row.reverse {
@@ -150,6 +222,34 @@
 
         .services-intro .section-title {
             font-size: 3rem;
+        }
+
+        .service-text::before,
+        .service-row.reverse .service-text::before {
+            width: 40px;
+            left: 0;
+            background: linear-gradient(90deg, var(--gold-accent) 0%, transparent 100%);
+        }
+
+        .service-img::before,
+        .service-row.reverse .service-img::before {
+            display: none;
+        }
+
+        .service-text::after,
+        .service-row.reverse .service-text::after {
+            font-size: 5rem;
+            right: 0;
+            left: auto;
+            opacity: 0.5;
+        }
+
+        .service-img img {
+            height: 250px;
+        }
+
+        .service-text p {
+            max-width: 100%;
         }
     }
 </style>
@@ -170,7 +270,7 @@
 <section class="section services-list-section">
     <div class="container">
         <div class="service-row">
-            <div class="service-text">
+            <div class="service-text" data-number="01">
                 <h3>AV System Design & Consulting</h3>
                 <p>End-to-end design for auditoriums, lecture halls, boardrooms, convention centres and public spaces.
                     From requirement mapping and schematics to BoQs, drawings and tender-ready documents, everything
@@ -182,7 +282,7 @@
         </div>
 
         <div class="service-row reverse">
-            <div class="service-text">
+            <div class="service-text" data-number="02">
                 <h3>Room Acoustics</h3>
                 <p>End-to-end acoustic planning including analysis, material selection and layout optimisation to
                     deliver crisp speech clarity, balanced sound and an environment tailored to its purpose.</p>
@@ -193,7 +293,7 @@
         </div>
 
         <div class="service-row">
-            <div class="service-text">
+            <div class="service-text" data-number="03">
                 <h3>Architectural & Stage Lighting Design</h3>
                 <p>Thoughtfully crafted lighting solutions that elevate both function and ambience. Ideal for
                     auditoriums, multipurpose halls and performance spaces, with a focus on comfort, visibility and
@@ -205,7 +305,7 @@
         </div>
 
         <div class="service-row reverse">
-            <div class="service-text">
+            <div class="service-text" data-number="04">
                 <h3>Technical Review & Value Engineering</h3>
                 <p>Independent audits of OEM or contractor proposals to ensure accuracy, fairness and performance. We
                     identify gaps, remove unnecessary costs and strengthen the overall system design.</p>
@@ -217,13 +317,15 @@
         </div>
 
         <div class="service-row">
-            <div class="service-text">
+            <div class="service-text" data-number="05">
                 <h3>Information & Communication Technology</h3>
                 <p>Planning and design of IT and networking infrastructure for new and existing buildings, ensuring
                     seamless connectivity, efficient communication and future-ready systems.</p>
             </div>
             <div class="service-img">
-                <img src="{{ url_for('static', filename='images/ict_infrastructure.jpeg') }}" alt="ICT Infrastructure">
+                <img src="{{ url_for('static', filename='images/Image_202602111856 (1).jpeg') }}"
+                    alt="ICT Infrastructure">
+
             </div>
         </div>
     </div>

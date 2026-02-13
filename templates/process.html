@@ -1,0 +1,882 @@
+{% extends "layout.html" %}
+
+{% block styles %}
+<style>
+    /* ============================================
+       OUR PROCESS PAGE - UNIQUE DIAGONAL DESIGN WITH SVG ICONS
+       ============================================ */
+
+    :root {
+        --diagonal-angle: 4deg;
+    }
+
+    /* Hero Section with Diagonal Cut */
+    .process-hero {
+        background: var(--navy-primary);
+        padding: 140px 0 180px;
+        position: relative;
+        overflow: hidden;
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 80px), 0 100%);
+    }
+
+    .process-hero::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 80%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(201, 169, 98, 0.1) 0%, transparent 70%);
+        transform: rotate(25deg);
+    }
+
+    .process-hero::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--gold-accent), transparent);
+    }
+
+    .hero-content {
+        max-width: 800px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-eyebrow {
+        display: inline-block;
+        padding: 8px 20px;
+        background: rgba(201, 169, 98, 0.15);
+        border: 1px solid rgba(201, 169, 98, 0.3);
+        color: var(--gold-accent);
+        font-size: 0.75rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+        font-weight: 600;
+    }
+
+    .hero-content h1 {
+        font-family: var(--font-heading);
+        font-size: 4rem;
+        font-weight: 200;
+        color: #fff;
+        line-height: 1.2;
+        margin-bottom: 30px;
+        letter-spacing: -1px;
+    }
+
+    .hero-content p {
+        font-size: 1.25rem;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 300;
+    }
+
+    /* Alternating Diagonal Steps */
+    .process-journey {
+        padding: 120px 0 80px;
+        background: #fff;
+        position: relative;
+    }
+
+    .journey-intro {
+        max-width: 700px;
+        margin: 0 auto 100px;
+        text-align: center;
+    }
+
+    .journey-intro h2 {
+        font-family: var(--font-heading);
+        font-size: 2.5rem;
+        font-weight: 300;
+        color: var(--navy-primary);
+        margin-bottom: 20px;
+    }
+
+    .journey-intro p {
+        font-size: 1.1rem;
+        color: #666;
+        line-height: 1.8;
+    }
+
+    /* Step Container - Alternating Layout */
+    .step-block {
+        margin-bottom: 0;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .step-block.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .step-inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        align-items: center;
+        min-height: 550px;
+        position: relative;
+    }
+
+    /* Alternating Pattern */
+    .step-block:nth-child(even) .step-inner {
+        direction: rtl;
+    }
+
+    .step-block:nth-child(even) .step-visual,
+    .step-block:nth-child(even) .step-info {
+        direction: ltr;
+    }
+
+    /* Visual Side with Diagonal Accent */
+    .step-visual {
+        background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-deep) 100%);
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding: 80px 60px;
+    }
+
+    .step-visual::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        background: linear-gradient(135deg, rgba(201, 169, 98, 0.1) 0%, transparent 100%);
+    }
+
+    .step-block:nth-child(even) .step-visual {
+        background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy-primary) 100%);
+    }
+
+    .visual-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+    }
+
+    .step-icon-container {
+        width: 180px;
+        height: 180px;
+        margin: 0 auto 30px;
+        position: relative;
+    }
+
+    .icon-background {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background: rgba(201, 169, 98, 0.15);
+        border: 2px solid rgba(201, 169, 98, 0.3);
+    }
+
+    .step-icon-container svg {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+    }
+
+    .step-number-large {
+        font-family: var(--font-heading);
+        font-size: 3.5rem;
+        font-weight: 100;
+        color: var(--gold-accent);
+        line-height: 1;
+        opacity: 0.9;
+        margin-bottom: 15px;
+    }
+
+    .step-label {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: rgba(255, 255, 255, 0.7);
+        font-weight: 600;
+    }
+
+    /* Info Side */
+    .step-info {
+        padding: 80px 70px;
+        background: #fff;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .step-block:nth-child(even) .step-info {
+        background: #fafbfc;
+    }
+
+    .step-title {
+        font-family: var(--font-heading);
+        font-size: 2rem;
+        font-weight: 400;
+        color: var(--navy-primary);
+        margin-bottom: 24px;
+        line-height: 1.3;
+    }
+
+    .step-text {
+        font-size: 1.08rem;
+        line-height: 1.9;
+        color: #555;
+        margin-bottom: 30px;
+        font-weight: 300;
+    }
+
+    .step-outcome-box {
+        border-top: 2px solid var(--gold-accent);
+        padding-top: 20px;
+        margin-top: 10px;
+    }
+
+    .outcome-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--gold-accent);
+        font-weight: 700;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .outcome-text {
+        font-size: 1.05rem;
+        color: var(--navy-primary);
+        font-weight: 500;
+        line-height: 1.6;
+    }
+
+    /* Progress Indicator */
+    .progress-rail {
+        position: fixed;
+        right: 40px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .progress-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(13, 35, 62, 0.2);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .progress-dot.active {
+        background: var(--gold-accent);
+        box-shadow: 0 0 20px rgba(201, 169, 98, 0.6);
+    }
+
+    .progress-dot:hover {
+        transform: scale(1.3);
+    }
+
+    /* Final CTA with Diagonal Entry */
+    .final-cta {
+        background: var(--navy-primary);
+        padding: 100px 0;
+        position: relative;
+        clip-path: polygon(0 80px, 100% 0, 100% 100%, 0 100%);
+        margin-top: 80px;
+    }
+
+    .final-cta::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--gold-accent), transparent);
+    }
+
+    .cta-content {
+        max-width: 700px;
+        margin: 0 auto;
+        text-align: center;
+        padding-top: 40px;
+    }
+
+    .cta-content h2 {
+        font-family: var(--font-heading);
+        font-size: 2.8rem;
+        font-weight: 300;
+        color: #fff;
+        margin-bottom: 24px;
+        letter-spacing: -0.5px;
+    }
+
+    .cta-content p {
+        font-size: 1.15rem;
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.8;
+        margin-bottom: 40px;
+    }
+
+    .cta-button {
+        display: inline-block;
+        padding: 18px 50px;
+        background: transparent;
+        border: 2px solid var(--gold-accent);
+        color: var(--gold-accent);
+        text-decoration: none;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 600;
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--gold-accent);
+        transition: left 0.4s ease;
+        z-index: -1;
+    }
+
+    .cta-button:hover {
+        color: var(--navy-dark);
+    }
+
+    .cta-button:hover::before {
+        left: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+        .progress-rail {
+            display: none;
+        }
+
+        .step-inner {
+            grid-template-columns: 1fr;
+            min-height: auto;
+        }
+
+        .step-block:nth-child(even) .step-inner {
+            direction: ltr;
+        }
+
+        .step-visual {
+            padding: 60px 40px;
+            min-height: 350px;
+        }
+
+        .step-icon-container {
+            width: 150px;
+            height: 150px;
+        }
+
+        .icon-background {
+            width: 120px;
+            height: 120px;
+        }
+
+        .step-number-large {
+            font-size: 3rem;
+        }
+
+        .step-info {
+            padding: 60px 40px;
+        }
+
+        .process-hero {
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 40px), 0 100%);
+        }
+
+        .final-cta {
+            clip-path: polygon(0 40px, 100% 0, 100% 100%, 0 100%);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero-content h1 {
+            font-size: 2.5rem;
+        }
+
+        .process-hero {
+            padding: 100px 0 140px;
+        }
+
+        .step-icon-container {
+            width: 120px;
+            height: 120px;
+        }
+
+        .icon-background {
+            width: 100px;
+            height: 100px;
+        }
+
+        .step-number-large {
+            font-size: 2.5rem;
+        }
+
+        .step-title {
+            font-size: 1.6rem;
+        }
+
+        .step-info,
+        .step-visual {
+            padding: 40px 30px;
+        }
+
+        .journey-intro h2 {
+            font-size: 2rem;
+        }
+
+        .cta-content h2 {
+            font-size: 2rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block title %}Our Process - Audionix Engineers LLP{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="process-hero">
+    <div class="container">
+        <div class="hero-content">
+            <span class="hero-eyebrow">Our Methodology</span>
+            <h1>A Process Built for Precision</h1>
+            <p>Six structured phases that transform complex technical requirements into reliable, operational systems
+                that work exactly as intended.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Process Journey -->
+<section class="process-journey">
+    <div class="container">
+        <div class="journey-intro">
+            <h2>From Concept to Commission</h2>
+            <p>Every project follows a structured path designed to eliminate ambiguity, reduce risk and ensure seamless
+                integration with architecture and operations.</p>
+        </div>
+    </div>
+
+    <!-- Step 1: Site Study -->
+    <div class="step-block" data-step="1">
+        <div class="step-inner">
+            <div class="step-visual">
+                <div class="visual-content">
+                    <div class="step-icon-container">
+                        <div class="icon-background"></div>
+                        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Clipboard with checklist -->
+                            <rect x="60" y="30" width="80" height="110" rx="4" fill="#C9A962" opacity="0.2"
+                                stroke="#C9A962" stroke-width="2" />
+                            <rect x="70" y="20" width="60" height="20" rx="3" fill="#C9A962" opacity="0.3" />
+                            <circle cx="100" cy="30" r="6" fill="#C9A962" />
+                            <!-- Checkmarks -->
+                            <path d="M75 60 L82 67 L95 52" stroke="#C9A962" stroke-width="3" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <line x1="100" y1="60" x2="125" y2="60" stroke="#C9A962" stroke-width="2"
+                                stroke-linecap="round" />
+                            <path d="M75 85 L82 92 L95 77" stroke="#C9A962" stroke-width="3" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <line x1="100" y1="85" x2="125" y2="85" stroke="#C9A962" stroke-width="2"
+                                stroke-linecap="round" />
+                            <circle cx="82" cy="110" r="4" stroke="#C9A962" stroke-width="2" fill="none" />
+                            <line x1="100" y1="110" x2="125" y2="110" stroke="#C9A962" stroke-width="2"
+                                stroke-linecap="round" opacity="0.5" />
+                            <!-- Magnifying glass overlay -->
+                            <circle cx="135" cy="130" r="18" stroke="#C9A962" stroke-width="3" fill="none" />
+                            <line x1="148" y1="143" x2="160" y2="155" stroke="#C9A962" stroke-width="3"
+                                stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <div class="step-number-large">01</div>
+                    <div class="step-label">Discovery</div>
+                </div>
+            </div>
+            <div class="step-info">
+                <h3 class="step-title">Site Study & Requirement Analysis</h3>
+                <p class="step-text">We begin by understanding the space, architecture and intended use. This includes
+                    comprehensive site surveys, stakeholder discussions and operational requirement mapping to establish
+                    a strong technical foundation.</p>
+                <div class="step-outcome-box">
+                    <span class="outcome-label">Deliverable</span>
+                    <p class="outcome-text">Clear functional brief aligned with design intent and stakeholder objectives
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 2: Concept Development -->
+    <div class="step-block" data-step="2">
+        <div class="step-inner">
+            <div class="step-visual">
+                <div class="visual-content">
+                    <div class="step-icon-container">
+                        <div class="icon-background"></div>
+                        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Light bulb with idea sparks -->
+                            <path d="M100 45 L100 55" stroke="#C9A962" stroke-width="2.5" stroke-linecap="round" />
+                            <path d="M75 55 L82 62" stroke="#C9A962" stroke-width="2.5" stroke-linecap="round" />
+                            <path d="M125 55 L118 62" stroke="#C9A962" stroke-width="2.5" stroke-linecap="round" />
+                            <!-- Bulb -->
+                            <circle cx="100" cy="95" r="30" fill="#C9A962" opacity="0.2" stroke="#C9A962"
+                                stroke-width="3" />
+                            <path d="M85 115 C85 125, 90 130, 100 135 C110 130, 115 125, 115 115" stroke="#C9A962"
+                                stroke-width="3" fill="none" />
+                            <rect x="92" y="135" width="16" height="15" rx="2" fill="#C9A962" opacity="0.3" />
+                            <line x1="85" y1="150" x2="115" y2="150" stroke="#C9A962" stroke-width="3"
+                                stroke-linecap="round" />
+                            <!-- Inner glow lines -->
+                            <path d="M95 75 L95 85" stroke="#C9A962" stroke-width="2" stroke-linecap="round"
+                                opacity="0.6" />
+                            <path d="M100 75 L100 85" stroke="#C9A962" stroke-width="2" stroke-linecap="round"
+                                opacity="0.8" />
+                            <path d="M105 75 L105 85" stroke="#C9A962" stroke-width="2" stroke-linecap="round"
+                                opacity="0.6" />
+                            <!-- Sparkles -->
+                            <path d="M60 80 L65 85 L60 90 L55 85 Z" fill="#C9A962" opacity="0.7" />
+                            <path d="M140 100 L144 104 L140 108 L136 104 Z" fill="#C9A962" opacity="0.7" />
+                            <path d="M70 115 L73 118 L70 121 L67 118 Z" fill="#C9A962" opacity="0.5" />
+                        </svg>
+                    </div>
+                    <div class="step-number-large">02</div>
+                    <div class="step-label">Ideation</div>
+                </div>
+            </div>
+            <div class="step-info">
+                <h3 class="step-title">Concept Development & Feasibility</h3>
+                <p class="step-text">We develop system concepts and evaluate feasibility based on space geometry, usage
+                    patterns, acoustic behavior, lighting needs and infrastructure constraints to ensure practical
+                    implementation.</p>
+                <div class="step-outcome-box">
+                    <span class="outcome-label">Deliverable</span>
+                    <p class="outcome-text">Technically viable solution options with defined performance goals</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 3: Detailed Design -->
+    <div class="step-block" data-step="3">
+        <div class="step-inner">
+            <div class="step-visual">
+                <div class="visual-content">
+                    <div class="step-icon-container">
+                        <div class="icon-background"></div>
+                        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Blueprint/technical drawing -->
+                            <rect x="45" y="50" width="110" height="85" rx="2" fill="#C9A962" opacity="0.15"
+                                stroke="#C9A962" stroke-width="2.5" />
+                            <!-- Grid lines -->
+                            <line x1="55" y1="50" x2="55" y2="135" stroke="#C9A962" stroke-width="1" opacity="0.3"
+                                stroke-dasharray="3 3" />
+                            <line x1="75" y1="50" x2="75" y2="135" stroke="#C9A962" stroke-width="1" opacity="0.3"
+                                stroke-dasharray="3 3" />
+                            <line x1="95" y1="50" x2="95" y2="135" stroke="#C9A962" stroke-width="1" opacity="0.3"
+                                stroke-dasharray="3 3" />
+                            <line x1="115" y1="50" x2="115" y2="135" stroke="#C9A962" stroke-width="1" opacity="0.3"
+                                stroke-dasharray="3 3" />
+                            <line x1="135" y1="50" x2="135" y2="135" stroke="#C9A962" stroke-width="1" opacity="0.3"
+                                stroke-dasharray="3 3" />
+                            <!-- Building schematic -->
+                            <rect x="65" y="70" width="35" height="45" fill="none" stroke="#C9A962"
+                                stroke-width="2.5" />
+                            <rect x="110" y="75" width="30" height="40" fill="none" stroke="#C9A962"
+                                stroke-width="2.5" />
+                            <line x1="65" y1="92" x2="100" y2="92" stroke="#C9A962" stroke-width="2" />
+                            <line x1="110" y1="95" x2="140" y2="95" stroke="#C9A962" stroke-width="2" />
+                            <!-- Dimension arrows -->
+                            <line x1="60" y1="145" x2="145" y2="145" stroke="#C9A962" stroke-width="2"
+                                marker-end="url(#arrowhead)" marker-start="url(#arrowhead)" />
+                            <line x1="50" y1="65" x2="50" y2="120" stroke="#C9A962" stroke-width="2" />
+                            <!-- Compass/drafting tool -->
+                            <circle cx="150" cy="130" r="12" stroke="#C9A962" stroke-width="2.5" fill="none" />
+                            <line x1="150" y1="130" x2="150" y2="118" stroke="#C9A962" stroke-width="2.5" />
+                            <line x1="150" y1="130" x2="160" y2="135" stroke="#C9A962" stroke-width="2.5" />
+                            <!-- Arrow marker definition -->
+                            <defs>
+                                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="3"
+                                    orient="auto">
+                                    <polygon points="0 0, 5 3, 0 6" fill="#C9A962" />
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="step-number-large">03</div>
+                    <div class="step-label">Engineering</div>
+                </div>
+            </div>
+            <div class="step-info">
+                <h3 class="step-title">Detailed Design & Engineering</h3>
+                <p class="step-text">Comprehensive system design is developed including schematics, layouts, acoustic
+                    treatment planning, lighting integration and control infrastructure planning with full coordination
+                    across all building systems.</p>
+                <div class="step-outcome-box">
+                    <span class="outcome-label">Deliverable</span>
+                    <p class="outcome-text">Coordinated technical design fully aligned with architecture and MEP</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 4: Documentation -->
+    <div class="step-block" data-step="4">
+        <div class="step-inner">
+            <div class="step-visual">
+                <div class="visual-content">
+                    <div class="step-icon-container">
+                        <div class="icon-background"></div>
+                        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Stacked documents -->
+                            <rect x="55" y="65" width="70" height="90" rx="3" fill="#C9A962" opacity="0.15"
+                                stroke="#C9A962" stroke-width="2.5" />
+                            <rect x="60" y="60" width="70" height="90" rx="3" fill="#C9A962" opacity="0.2"
+                                stroke="#C9A962" stroke-width="2.5" />
+                            <rect x="65" y="55" width="70" height="90" rx="3" fill="none" stroke="#C9A962"
+                                stroke-width="2.5" />
+                            <!-- Document lines -->
+                            <line x1="75" y1="75" x2="120" y2="75" stroke="#C9A962" stroke-width="2.5"
+                                stroke-linecap="round" />
+                            <line x1="75" y1="85" x2="115" y2="85" stroke="#C9A962" stroke-width="2"
+                                stroke-linecap="round" />
+                            <line x1="75" y1="95" x2="120" y2="95" stroke="#C9A962" stroke-width="2"
+                                stroke-linecap="round" />
+                            <line x1="75" y1="105" x2="110" y2="105" stroke="#C9A962" stroke-width="2"
+                                stroke-linecap="round" />
+                            <line x1="75" y1="115" x2="120" y2="115" stroke="#C9A962" stroke-width="2"
+                                stroke-linecap="round" />
+                            <line x1="75" y1="125" x2="115" y2="125" stroke="#C9A962" stroke-width="2"
+                                stroke-linecap="round" />
+                            <!-- Stamp/seal -->
+                            <circle cx="115" cy="125" r="15" stroke="#C9A962" stroke-width="2.5" fill="none"
+                                opacity="0.7" />
+                            <path d="M110 125 L113 128 L120 120" stroke="#C9A962" stroke-width="2.5"
+                                stroke-linecap="round" stroke-linejoin="round" opacity="0.7" />
+                        </svg>
+                    </div>
+                    <div class="step-number-large">04</div>
+                    <div class="step-label">Documentation</div>
+                </div>
+            </div>
+            <div class="step-info">
+                <h3 class="step-title">Documentation & Bill of Quantities</h3>
+                <p class="step-text">We prepare equipment-agnostic specifications, detailed BOQs and comprehensive
+                    tender documentation to ensure transparent, performance-driven procurement aligned with project
+                    requirements.</p>
+                <div class="step-outcome-box">
+                    <span class="outcome-label">Deliverable</span>
+                    <p class="outcome-text">Tender-ready documentation with clear technical standards</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 5: Tender Support -->
+    <div class="step-block" data-step="5">
+        <div class="step-inner">
+            <div class="step-visual">
+                <div class="visual-content">
+                    <div class="step-icon-container">
+                        <div class="icon-background"></div>
+                        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Balance scale for evaluation -->
+                            <line x1="100" y1="60" x2="100" y2="110" stroke="#C9A962" stroke-width="3"
+                                stroke-linecap="round" />
+                            <circle cx="100" cy="55" r="8" fill="#C9A962" opacity="0.3" stroke="#C9A962"
+                                stroke-width="2.5" />
+                            <line x1="65" y1="80" x2="135" y2="80" stroke="#C9A962" stroke-width="3"
+                                stroke-linecap="round" />
+                            <!-- Left pan -->
+                            <path d="M65 80 L60 90 L50 95 L50 100 L80 100 L80 95 L70 90 Z" fill="#C9A962" opacity="0.2"
+                                stroke="#C9A962" stroke-width="2.5" />
+                            <!-- Right pan -->
+                            <path d="M135 80 L140 90 L150 95 L150 100 L120 100 L120 95 L130 90 Z" fill="#C9A962"
+                                opacity="0.2" stroke="#C9A962" stroke-width="2.5" />
+                            <!-- Base -->
+                            <rect x="85" y="110" width="30" height="8" rx="2" fill="#C9A962" opacity="0.3" />
+                            <rect x="75" y="118" width="50" height="5" rx="2" fill="#C9A962" opacity="0.4" />
+                            <!-- Evaluation checkmarks -->
+                            <path d="M55 105 L60 110 L70 100" stroke="#C9A962" stroke-width="2.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path d="M125 105 L130 110 L140 100" stroke="#C9A962" stroke-width="2.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <!-- Stars for quality -->
+                            <path d="M55 70 L57 75 L62 75 L58 78 L60 83 L55 80 L50 83 L52 78 L48 75 L53 75 Z"
+                                fill="#C9A962" opacity="0.6" />
+                            <path d="M145 70 L147 75 L152 75 L148 78 L150 83 L145 80 L140 83 L142 78 L138 75 L143 75 Z"
+                                fill="#C9A962" opacity="0.6" />
+                        </svg>
+                    </div>
+                    <div class="step-number-large">05</div>
+                    <div class="step-label">Evaluation</div>
+                </div>
+            </div>
+            <div class="step-info">
+                <h3 class="step-title">Tender Support & Technical Evaluation</h3>
+                <p class="step-text">We assist stakeholders during the tender stage by reviewing vendor proposals,
+                    verifying compliance against specifications and supporting technical decision-making throughout the
+                    selection process.</p>
+                <div class="step-outcome-box">
+                    <span class="outcome-label">Deliverable</span>
+                    <p class="outcome-text">Selection of the most suitable technical solution based on performance</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 6: Execution & Commissioning -->
+    <div class="step-block" data-step="6">
+        <div class="step-inner">
+            <div class="step-visual">
+                <div class="visual-content">
+                    <div class="step-icon-container">
+                        <div class="icon-background"></div>
+                        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Gear/settings icon with checkmark -->
+                            <circle cx="100" cy="100" r="35" fill="#C9A962" opacity="0.15" stroke="#C9A962"
+                                stroke-width="3" />
+                            <!-- Gear teeth -->
+                            <rect x="97" y="55" width="6" height="12" fill="#C9A962" opacity="0.4" />
+                            <rect x="97" y="133" width="6" height="12" fill="#C9A962" opacity="0.4" />
+                            <rect x="55" y="97" width="12" height="6" fill="#C9A962" opacity="0.4" />
+                            <rect x="133" y="97" width="12" height="6" fill="#C9A962" opacity="0.4" />
+                            <rect x="69" y="69" width="8" height="8" transform="rotate(45 73 73)" fill="#C9A962"
+                                opacity="0.4" />
+                            <rect x="123" y="123" width="8" height="8" transform="rotate(45 127 127)" fill="#C9A962"
+                                opacity="0.4" />
+                            <rect x="123" y="69" width="8" height="8" transform="rotate(-45 127 73)" fill="#C9A962"
+                                opacity="0.4" />
+                            <rect x="69" y="123" width="8" height="8" transform="rotate(-45 73 127)" fill="#C9A962"
+                                opacity="0.4" />
+                            <!-- Inner circle -->
+                            <circle cx="100" cy="100" r="18" fill="none" stroke="#C9A962" stroke-width="2.5" />
+                            <!-- Large checkmark -->
+                            <path d="M85 100 L95 110 L120 85" stroke="#C9A962" stroke-width="4" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <!-- Wrench overlay -->
+                            <path d="M140 130 L150 120 L145 115 L135 125 L125 115 L120 120 L130 130" fill="#C9A962"
+                                opacity="0.3" stroke="#C9A962" stroke-width="2" />
+                        </svg>
+                    </div>
+                    <div class="step-number-large">06</div>
+                    <div class="step-label">Delivery</div>
+                </div>
+            </div>
+            <div class="step-info">
+                <h3 class="step-title">Execution Support & Commissioning</h3>
+                <p class="step-text">During installation, we provide technical oversight, coordination support and final
+                    system tuning to ensure performance objectives are met and systems are delivered as designed and
+                    ready for operation.</p>
+                <div class="step-outcome-box">
+                    <span class="outcome-label">Deliverable</span>
+                    <p class="outcome-text">Systems commissioned, tested and ready for seamless operation</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Progress Indicator -->
+<div class="progress-rail">
+    <div class="progress-dot" data-target="1"></div>
+    <div class="progress-dot" data-target="2"></div>
+    <div class="progress-dot" data-target="3"></div>
+    <div class="progress-dot" data-target="4"></div>
+    <div class="progress-dot" data-target="5"></div>
+    <div class="progress-dot" data-target="6"></div>
+</div>
+
+<!-- Final CTA -->
+<section class="final-cta">
+    <div class="cta-content">
+        <h2>Let's Build Something Exceptional</h2>
+        <p>Ready to bring precision and clarity to your next project? Our structured approach ensures technology works
+            exactly as intended.</p>
+        <a href="/contact" class="cta-button">Start Your Project</a>
+    </div>
+</section>
+
+<!-- Animation Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const stepBlocks = document.querySelectorAll('.step-block');
+        const progressDots = document.querySelectorAll('.progress-dot');
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const step = entry.target;
+                    const stepNum = step.getAttribute('data-step');
+
+                    setTimeout(() => {
+                        step.classList.add('visible');
+                    }, 100);
+
+                    // Update progress indicator
+                    progressDots.forEach(dot => {
+                        const dotTarget = dot.getAttribute('data-target');
+                        if (parseInt(dotTarget) === parseInt(stepNum)) {
+                            dot.classList.add('active');
+                        } else if (parseInt(dotTarget) < parseInt(stepNum)) {
+                            dot.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        stepBlocks.forEach(block => {
+            observer.observe(block);
+        });
+
+        // Progress dot click navigation
+        progressDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const target = dot.getAttribute('data-target');
+                const targetBlock = document.querySelector(`.step-block[data-step="${target}"]`);
+                if (targetBlock) {
+                    targetBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}

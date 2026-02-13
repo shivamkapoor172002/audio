@@ -3,13 +3,26 @@
 {% block styles %}
 <style>
     /* ============================================
-       CONTACT PAGE STYLES
+       CONTACT PAGE STYLES - FRESH MODERN DESIGN
        ============================================ */
 
     .contact {
         padding: 100px 0;
-        background: var(--cream-bg);
+        background: linear-gradient(135deg, var(--cream-bg) 0%, #f5f2eb 100%);
         text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .contact::before {
+        content: '';
+        position: absolute;
+        top: -30%;
+        left: -10%;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(196, 160, 82, 0.06) 0%, transparent 70%);
+        border-radius: 50%;
     }
 
     .contact .tagline {
@@ -75,57 +88,156 @@
         box-shadow: 0 10px 30px rgba(26, 43, 90, 0.3);
     }
 
+    /* Contact Page Section */
+    .contact-page-section {
+        background: linear-gradient(135deg, var(--cream-bg) 0%, #f5f2eb 100%);
+        padding: 80px 0;
+        position: relative;
+    }
+
+    .contact-page-section::before {
+        content: '';
+        position: absolute;
+        bottom: -20%;
+        right: -5%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(196, 160, 82, 0.05) 0%, transparent 70%);
+        border-radius: 50%;
+    }
+
     /* Contact Details Section */
+    .contact-details {
+        position: relative;
+        opacity: 0;
+        animation: fadeInUp 0.8s ease forwards;
+        animation-delay: 0.1s;
+    }
+
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
     .contact-details h3 {
         font-family: var(--font-heading);
         color: var(--navy-primary);
         margin-bottom: 15px;
+        font-size: 2.2rem;
+        position: relative;
+    }
+
+    .contact-details h3::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--gold-accent) 0%, transparent 100%);
+        border-radius: 2px;
+    }
+
+    .contact-details>p {
+        margin-bottom: 2rem;
+        color: #666;
+        line-height: 1.7;
     }
 
     .contact-detail-item {
         display: flex;
-        gap: 15px;
-        margin-top: 25px;
+        gap: 20px;
+        margin-top: 35px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(196, 160, 82, 0.1);
+    }
+
+    .contact-detail-item:hover {
+        transform: translateX(5px);
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
     }
 
     .contact-detail-item .icon {
-        width: 40px;
-        height: 40px;
-        background: rgba(201, 169, 98, 0.1);
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, rgba(196, 160, 82, 0.15) 0%, rgba(196, 160, 82, 0.25) 100%);
         color: var(--navy-primary);
-        border-radius: 50%;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
+        flex-shrink: 0;
     }
 
     .contact-detail-item .info h5 {
-        margin: 0 0 5px;
+        margin: 0 0 8px;
         color: var(--navy-primary);
         font-weight: 600;
+        font-size: 1.1rem;
     }
 
     .contact-detail-item .info a,
     .contact-detail-item .info p {
-        color: var(--text-dark);
+        color: #555;
         text-decoration: none;
         margin: 0;
+        transition: color 0.3s ease;
     }
 
-    /* Contact Form */
+    .contact-detail-item .info a:hover {
+        color: var(--gold-accent);
+    }
+
+    /* Contact Form - Enhanced */
     .contact-form-container {
-        background: #fff;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        background: rgba(235, 226, 205, 0.4);
+        backdrop-filter: blur(10px);
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(196, 160, 82, 0.2);
+        position: relative;
+        opacity: 0;
+        animation: fadeInUp 0.8s ease forwards;
+        animation-delay: 0.2s;
+    }
+
+    .contact-form-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--gold-accent) 0%, var(--navy-primary) 100%);
+        border-radius: 16px 16px 0 0;
     }
 
     .form-alert {
-        padding: 12px 16px;
-        border-radius: 8px;
+        padding: 14px 18px;
+        border-radius: 10px;
         margin-bottom: 20px;
         font-size: 0.95rem;
+        animation: slideIn 0.4s ease;
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     .form-alert.success {
@@ -148,65 +260,87 @@
     .contact-form-container h3 {
         font-family: var(--font-heading);
         color: var(--navy-primary);
-        margin-bottom: 25px;
+        margin-bottom: 30px;
+        font-size: 1.8rem;
     }
 
     .form-control {
         width: 100%;
-        padding: 12px 15px;
-        border: 1px solid #ddd;
-        border-radius: 6px;
+        padding: 14px 18px;
+        border: 2px solid rgba(0, 0, 0, 0.08);
+        border-radius: 10px;
         font-family: var(--font-body);
         font-size: 1rem;
         margin-bottom: 5px;
-        transition: border-color 0.3s ease;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.8);
     }
 
     .form-control:focus {
         outline: none;
-        border-color: var(--navy-primary);
+        border-color: var(--gold-accent);
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(196, 160, 82, 0.1);
     }
 
     .contact-form label {
         display: block;
         margin-bottom: 8px;
         color: var(--navy-primary);
-        font-weight: 500;
+        font-weight: 600;
         font-size: 0.95rem;
     }
 
     .submit-btn {
-        background: var(--navy-primary);
+        background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-dark) 100%);
         color: #fff;
         border: none;
-        padding: 12px 30px;
-        border-radius: 30px;
+        padding: 14px 40px;
+        border-radius: 50px;
         cursor: pointer;
         font-weight: 600;
         margin-top: 15px;
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 15px rgba(2, 35, 80, 0.2);
     }
 
     .submit-btn:hover {
-        background: var(--gold-accent);
+        background: linear-gradient(135deg, var(--gold-accent) 0%, #d4b062 100%);
         transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(196, 160, 82, 0.4);
     }
 
-    /* Map Section */
-    .contact-page-section {
-        background: var(--cream-bg);
-    }
-
+    /* Map Section - Enhanced */
     .map-section {
         width: 100%;
-        height: 450px;
+        height: 500px;
         line-height: 0;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .map-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 8px;
+        background: linear-gradient(90deg, var(--navy-primary) 0%, var(--gold-accent) 50%, var(--navy-primary) 100%);
+        z-index: 1;
     }
 
     .map-section iframe {
         width: 100%;
         height: 100%;
         border: none;
+        filter: grayscale(0.2) contrast(1.1);
+        transition: filter 0.3s ease;
+    }
+
+    .map-section:hover iframe {
+        filter: grayscale(0) contrast(1);
     }
 
     /* Responsive */
@@ -218,6 +352,19 @@
 
         .contact-form-container {
             margin-top: 40px;
+            padding: 30px 25px;
+        }
+
+        .contact-details h3 {
+            font-size: 1.8rem;
+        }
+
+        .map-section {
+            height: 350px;
+        }
+
+        .contact-detail-item:hover {
+            transform: none;
         }
     }
 </style>
@@ -246,7 +393,14 @@
                         about our services.</p>
 
                     <div class="contact-detail-item">
-                        <div class="icon">✉</div>
+                        <div class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect x="2" y="4" width="20" height="16" rx="2" />
+                                <path d="m2 7 10 7 10-7" />
+                            </svg>
+                        </div>
                         <div class="info">
                             <h5>Email Us</h5>
                             <a href="mailto:INFO@AUDIONIXENGINEERS.COM">INFO@AUDIONIXENGINEERS.COM</a>
@@ -254,7 +408,14 @@
                     </div>
 
                     <div class="contact-detail-item">
-                        <div class="icon">📞</div>
+                        <div class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                            </svg>
+                        </div>
                         <div class="info">
                             <h5>Call Us</h5>
                             <a href="tel:+919999762624">+91 99997 62624</a>
@@ -262,10 +423,17 @@
                     </div>
 
                     <div class="contact-detail-item">
-                        <div class="icon">📍</div>
+                        <div class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                                <circle cx="12" cy="10" r="3" />
+                            </svg>
+                        </div>
                         <div class="info">
                             <h5>Location</h5>
-                            <p>New Delhi, India</p>
+                            <p>Sector 77, Noida</p>
                             <p class="small text-muted">Serving clients pan-India</p>
                         </div>
                     </div>
@@ -294,19 +462,19 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="name">Your Name</label>
-                                <input type="text" id="name" name="name" class="form-control" placeholder="John Doe"
+                                <input type="text" id="name" name="name" class="form-control" placeholder=""
                                     value="{{ form.name }}" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="email">Your Email</label>
-                                <input type="email" id="email" name="email" class="form-control"
-                                    placeholder="john@example.com" value="{{ form.email }}" required>
+                                <input type="email" id="email" name="email" class="form-control" placeholder=""
+                                    value="{{ form.email }}" required>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" class="form-control"
-                                placeholder="Project Inquiry" value="{{ form.subject }}" required>
+                            <input type="text" id="subject" name="subject" class="form-control" placeholder=""
+                                value="{{ form.subject }}" required>
                         </div>
                         <div class="mb-3">
                             <label for="message">Message</label>
@@ -324,7 +492,7 @@
 <!-- Map Section -->
 <section class="map-section">
     <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d224345.83923192776!2d77.0688975472578!3d28.52728034389636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5b347eb62d%3A0x8683e95655079a40!2sNew%20Delhi%2C%20Delhi%2C%20India!5e0!3m2!1sen!2sus!4v1645604470921!5m2!1sen!2sus"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14020.234567890123!2d77.3910!3d28.5355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce5456840d103%3A0x3b51d5f0f0e6d5e6!2sSector%2077%2C%20Noida%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1645604470921!5m2!1sen!2sin"
         width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 </section>
 

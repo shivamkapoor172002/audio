@@ -447,112 +447,86 @@
         background: #03305a;
     }
 
-    /* Portfolio Highlights */
+    /* Portfolio Highlights - Scroll-Driven Horizontal Carousel */
     .portfolio-highlights {
         background: #f5f2eb;
-        padding: 80px 0;
+        padding: 0;
+        position: relative;
+    }
+
+    .portfolio-scroll-spacer {
+        height: 80vh;
+        position: relative;
+    }
+
+    .portfolio-sticky {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .portfolio-header {
+        text-align: center;
+        padding: 30px 20px 20px;
+    }
+
+    .scroll-track-wrapper {
+        overflow: hidden;
+        padding: 20px 0 40px;
+        position: relative;
+        cursor: grab;
+        user-select: none;
+        touch-action: pan-y;
+    }
+
+    .scroll-track-wrapper:active {
+        cursor: grabbing;
     }
 
     .sector-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        display: flex;
         gap: 30px;
-        max-width: 1100px;
-        margin: 0 auto;
+        padding: 0 0;
+        will-change: transform;
+        /* createHardwareAcceleratedLayer */
+        transform: translate3d(0, 0, 0);
     }
 
     .sector-item {
         background: white;
-        border-radius: 8px;
+        border-radius: 12px;
         overflow: hidden;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        transition: transform 0.3s ease;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        flex-shrink: 0;
+        width: 320px;
     }
 
     .sector-item:hover {
-        transform: translateY(-5px);
+        transform: translateY(-8px);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .sector-image {
+        position: relative;
+        width: 100%;
+        height: 220px;
+        overflow: hidden;
     }
 
     .sector-image img {
         width: 100%;
-        height: 200px;
+        height: 100%;
         object-fit: cover;
+        transition: transform 0.5s ease;
     }
 
-    /* Sector Carousel Styles */
-    .sector-carousel {
-        position: relative;
-        width: 100%;
-        height: 200px;
-        overflow: hidden;
-    }
-
-    .sector-slide {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-        transform: translateX(100%);
-        transition: transform 1.5s cubic-bezier(0.23, 1, 0.32, 1);
-        will-change: transform;
-    }
-
-    .sector-slide.active {
-        transform: translateX(0);
-        z-index: 2;
-    }
-
-    .sector-slide.exit {
-        transform: translateX(-100%);
-        z-index: 1;
-    }
-
-    /* Carousel Navigation Arrows */
-    .carousel-arrow {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(0, 0, 0, 0.5);
-        color: white;
-        border: none;
-        font-size: 2rem;
-        width: 40px;
-        height: 40px;
-        cursor: pointer;
-        z-index: 10;
-        transition: all 0.3s ease;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-    }
-
-    .sector-carousel:hover .carousel-arrow,
-    .hero-immersive:hover .carousel-arrow {
-        opacity: 1;
-    }
-
-    .carousel-arrow:hover {
-        background: rgba(0, 0, 0, 0.8);
-        transform: translateY(-50%) scale(1.1);
-    }
-
-    .carousel-prev {
-        left: 10px;
-    }
-
-    .carousel-next {
-        right: 10px;
-    }
-
-    /* Hero slider arrows - larger */
-    .hero-immersive .carousel-arrow {
-        width: 50px;
-        height: 50px;
-        font-size: 2.5rem;
+    .sector-item:hover .sector-image img {
+        transform: scale(1.08);
     }
 
     .sector-details {
@@ -880,10 +854,6 @@
 
         .point-content p {
             font-size: 0.95rem;
-        }
-
-        .sector-grid {
-            grid-template-columns: 1fr;
         }
 
         .container {
@@ -1227,8 +1197,17 @@
 
     <div class="hero-center-content">
         <h1 class="hero-headline">Experiences,<br><span class="gold-text">Amplified.</span></h1>
-        <p class="hero-subtext">Independent consultancy designing professional AV, acoustics and lighting systems for
-            India's most demanding environments.</p>
+        <h2
+            style="color: #fff; font-size: 1.4rem; font-weight: 400; letter-spacing: 1px; margin-top: 10px; font-family: var(--font-heading);">
+            Independent AV, Acoustics, Lighting &amp; ICT Consultancy</h2>
+        <p class="hero-subtext" style="margin-top: 15px;">Vendor-neutral system design for complex government,
+            institutional and architectural environments.</p>
+        <p class="hero-subtext" style="font-size: 0.95rem; margin-top: 10px; max-width: 700px; opacity: 0.85;">
+            Audionix Engineers LLP is an independent consultancy specializing in professional AV, Acoustics, Lighting
+            and Information &amp; Communication Technology system design. We support architects, institutions and
+            project stakeholders in translating design intent into technically robust, practical and future-ready
+            technology solutions.
+        </p>
 
         <div class="hero-stats-inline">
             <div class="stat-block">
@@ -1248,8 +1227,8 @@
         </div>
 
         <div class="hero-actions">
-            <a href="/services" class="btn-gold">Explore Services</a>
-            <a href="/contact" class="btn-outline-light">Start a Project</a>
+            <a href="/contact" class="btn-gold">Discuss Your Project</a>
+            <a href="/services" class="btn-outline-light">View Our Expertise</a>
         </div>
     </div>
 
@@ -1273,47 +1252,15 @@
         <span class="section-label">Who We Are</span>
         <h2 class="section-heading">Bridging Vision<br>with Technology</h2>
         <p class="about-description">
-            <strong>AUDIONIX ENGINEERS LLP</strong> is an independent consultancy that designs professional AV,
-            acoustics and lighting systems for government, institutional and corporate spaces across India.
+            <strong>Audionix Engineers LLP</strong> is an independent consulting practice delivering professional AV,
+            acoustics, lighting and ICT system design for mission-critical and large-format environments across India.
         </p>
         <p class="about-description">
-            With deep on-ground experience and a clear, vendor-neutral approach, we bridge the gap between client
-            expectations, real-world site challenges and rapidly evolving technology.
+            With extensive on-site experience and a vendor-neutral approach, we bridge the gap between architectural
+            vision, technical performance and real-world execution. Our focus is on delivering solutions that are
+            technically sound, operationally practical and sustainable throughout their lifecycle.
         </p>
-        <div class="result-highlight">
-            <div class="result-icon">→</div>
-            <div class="result-content">
-                <strong>The Result?</strong> Solutions that are reliable, scalable and effortless to operate, built to
-                look good on paper, and work even better in the real world.
-            </div>
-        </div>
         <a href="/about" class="text-link">Learn more about us →</a>
-    </div>
-</section>
-
-<!-- Founder Section - Elegant Card -->
-<section class="founder-showcase">
-    <div class="container">
-        <div class="founder-card">
-            <div class="founder-photo">
-                <img src="{{ url_for('static', filename='images/founder_owner_image_vineet.jpg') }}"
-                    alt="Vineet Tripathi">
-            </div>
-            <div class="founder-info">
-                <span class="section-label light">Leadership</span>
-                <h2 class="founder-name">Vineet Tripathi</h2>
-                <p class="founder-role">Founder & Principal Consultant</p>
-                <p class="founder-bio">
-                    With over <strong>10+ years of experience</strong> in India's professional AV industry, Vineet
-                    brings deep technical expertise from working with global leaders like <span class="gold-text">Bose
-                        Professional</span> and <span class="gold-text">Harman International</span>.
-                </p>
-                <p class="founder-bio">
-                    His career spans complex, large-format projects across government, institutional and corporate
-                    environments—giving him a clear understanding of real-site challenges and performance expectations.
-                </p>
-            </div>
-        </div>
     </div>
 </section>
 
@@ -1323,7 +1270,7 @@
         <div class="section-intro">
             <span class="section-label">What We Do</span>
             <h2 class="section-heading center">Our Services</h2>
-            <p class="section-subtext">Where sound, sight and sense come together.</p>
+            <p class="section-subtext">Where sound, sight and experience converge.</p>
         </div>
 
         <div class="services-cards">
@@ -1373,82 +1320,234 @@
     </div>
 </section>
 
-<!-- Portfolio Highlights -->
-<section class="portfolio-highlights">
-    <div class="container">
-        <div class="section-intro">
-            <span class="section-label">Our Work</span>
-            <h2 class="section-heading center">Sectors We Serve</h2>
-            <p class="section-subtext">From high-stakes courtrooms to smart cities and sacred spaces.</p>
+<!-- Portfolio Highlights - Scroll-Driven Horizontal Carousel -->
+<section class="portfolio-highlights" id="portfolio-section">
+    <div class="portfolio-scroll-spacer" style="height: auto;">
+        <div class="portfolio-sticky">
+            <div class="portfolio-header">
+                <span class="section-label">Sectors / Experience</span>
+                <h2 class="section-heading center">Sectors We Serve</h2>
+                <p class="section-subtext">From mission-critical facilities to immersive public spaces.</p>
+            </div>
+
+            <div class="scroll-track-wrapper">
+                <div class="sector-grid" id="sector-track">
+
+                    <div class="sector-item">
+                        <div class="sector-image">
+                            <img src="{{ url_for('static', filename='images/Convention_Centres.jpeg') }}"
+                                alt="Convention Centres">
+                        </div>
+                        <div class="sector-details">
+                            <h4>Convention Centres</h4>
+                            <p>Scalable AV, acoustics and lighting systems designed for multi-format events, conferences
+                                and cultural performances.</p>
+                        </div>
+                    </div>
+
+                    <div class="sector-item">
+                        <div class="sector-image">
+                            <img src="{{ url_for('static', filename='images/Public_Infrastructure.jpeg') }}"
+                                alt="Public Infrastructure">
+                        </div>
+                        <div class="sector-details">
+                            <h4>Public Infrastructure</h4>
+                            <p>High-reliability technology systems for civic environments requiring performance
+                                consistency and long-term serviceability.</p>
+                        </div>
+                    </div>
+
+                    <div class="sector-item">
+                        <div class="sector-image">
+                            <img src="{{ url_for('static', filename='images/judiciary.jpg') }}" alt="Judiciary">
+                        </div>
+                        <div class="sector-details">
+                            <h4>Judiciary</h4>
+                            <p>Precision-designed speech environments supporting clarity, authority and seamless
+                                proceedings in acoustically critical spaces.</p>
+                        </div>
+                    </div>
+
+                    <div class="sector-item">
+                        <div class="sector-image">
+                            <img src="{{ url_for('static', filename='images/iitd.jpg') }}" alt="Education">
+                        </div>
+                        <div class="sector-details">
+                            <h4>Education</h4>
+                            <p>Future-ready AV ecosystems for lecture halls, hybrid learning and large academic events,
+                                designed to grow with institutional needs.</p>
+                        </div>
+                    </div>
+
+                    <div class="sector-item">
+                        <div class="sector-image">
+                            <img src="{{ url_for('static', filename='images/gujarat-science-city.jpg') }}"
+                                alt="Experience Centres & Museums">
+                        </div>
+                        <div class="sector-details">
+                            <h4>Experience Centres & Museums</h4>
+                            <p>Immersive multimedia, lighting and AV systems that enhance storytelling and visitor
+                                engagement across cultural spaces.</p>
+                        </div>
+                    </div>
+
+                    <div class="sector-item">
+                        <div class="sector-image">
+                            <img src="{{ url_for('static', filename='images/corporate.png') }}"
+                                alt="Corporate & Boardroom">
+                        </div>
+                        <div class="sector-details">
+                            <h4>Corporate & Boardroom</h4>
+                            <p>Integrated AV and collaboration systems for meeting rooms, executive boardrooms and
+                                command centres.</p>
+                        </div>
+                    </div>
+
+                    <div class="sector-item">
+                        <div class="sector-image">
+                            <img src="{{ url_for('static', filename='images/audi.png') }}"
+                                alt="Auditoriums & Performing Arts">
+                        </div>
+                        <div class="sector-details">
+                            <h4>Auditoriums & Performing Arts</h4>
+                            <p>Comprehensive AV, acoustics and stage lighting design supporting speech, music and large
+                                audience experiences.</p>
+                        </div>
+                    </div>
+
+                    <div class="sector-item">
+                        <div class="sector-image">
+                            <img src="{{ url_for('static', filename='images/smart.jpeg') }}" alt="Smart Cities & Urban">
+                        </div>
+                        <div class="sector-details">
+                            <h4>Smart Cities & Urban</h4>
+                            <p>Public address networks, multimedia displays and integrated communication systems for
+                                large urban environments.</p>
+                        </div>
+                    </div>
+
+                    <div class="sector-item">
+                        <div class="sector-image">
+                            <img src="{{ url_for('static', filename='images/Ganga-Ghat.jpg') }}"
+                                alt="Places of Worship & Heritage">
+                        </div>
+                        <div class="sector-details">
+                            <h4>Places of Worship & Heritage</h4>
+                            <p>Sensitive AV and acoustic solutions that respect architectural heritage while ensuring
+                                clear communication.</p>
+                        </div>
+                    </div>
+
+                    <div class="sector-item">
+                        <div class="sector-image">
+                            <img src="{{ url_for('static', filename='images/bnajara.jpeg') }}"
+                                alt="Government & Institutional">
+                        </div>
+                        <div class="sector-details">
+                            <h4>Government & Institutional</h4>
+                            <p>Secure, performance-driven AV systems for administrative buildings and official venues
+                                requiring reliability.</p>
+                        </div>
+                    </div>
+
+                    <div class="sector-item">
+                        <div class="sector-image">
+                            <img src="{{ url_for('static', filename='images/Public_Infrastructure.jpeg') }}"
+                                alt="Stadiums & Large Venues">
+                        </div>
+                        <div class="sector-details">
+                            <h4>Stadiums & Large Venues</h4>
+                            <p>Distributed audio, display and control systems designed for high-capacity environments
+                                and complex operations.</p>
+                        </div>
+                    </div>
+
+                    <div class="sector-item">
+                        <div class="sector-image">
+                            <img src="{{ url_for('static', filename='images/iitjodhpur.jpeg') }}"
+                                alt="Research & Training">
+                        </div>
+                        <div class="sector-details">
+                            <h4>Research & Training</h4>
+                            <p>Specialized AV and communication systems supporting simulation rooms, training centres
+                                and technical learning.</p>
+                        </div>
+                    </div>
+
+                    <div class="sector-item">
+                        <div class="sector-image">
+                            <img src="{{ url_for('static', filename='images/kedarnath.jpg') }}"
+                                alt="Command & Control Rooms">
+                        </div>
+                        <div class="sector-details">
+                            <h4>Command & Control Rooms</h4>
+                            <p>Mission-critical AV and visualization systems designed for monitoring, coordination and
+                                operational continuity.</p>
+                        </div>
+                    </div>
+
+                    <div class="sector-item">
+                        <div class="sector-image">
+                            <img src="{{ url_for('static', filename='images/Convention_Centres.jpeg') }}"
+                                alt="Hospitality">
+                        </div>
+                        <div class="sector-details">
+                            <h4>Hospitality (Hotels & Resorts)</h4>
+                            <p>Integrated AV, acoustics and lighting design for ballrooms, conference spaces and public
+                                areas.</p>
+                        </div>
+                    </div>
+
+                    <div class="sector-item">
+                        <div class="sector-image">
+                            <img src="{{ url_for('static', filename='images/gujarat-science-city.jpg') }}"
+                                alt="Retail Chains">
+                        </div>
+                        <div class="sector-details">
+                            <h4>Retail Chains</h4>
+                            <p>Scalable background music, digital display and control infrastructure supporting brand
+                                identity and engagement.</p>
+                        </div>
+                    </div>
+
+                    <div class="sector-item">
+                        <div class="sector-image">
+                            <img src="{{ url_for('static', filename='images/convention_centres_new.jpeg') }}"
+                                alt="Shopping Malls">
+                        </div>
+                        <div class="sector-details">
+                            <h4>Shopping Malls & Complexes</h4>
+                            <p>Public address, ambient audio, digital signage and multimedia systems for large
+                                circulation areas.</p>
+                        </div>
+                    </div>
+
+                    <div class="sector-item">
+                        <div class="sector-image">
+                            <img src="{{ url_for('static', filename='images/CLUB-SOUND-SYSTEM.jpg') }}"
+                                alt="Clubs & Lounges">
+                        </div>
+                        <div class="sector-details">
+                            <h4>Clubs & Lounges</h4>
+                            <p>Performance-driven sound, lighting and multimedia integration for high-energy
+                                environments.</p>
+                        </div>
+                    </div>
+
+                    <div class="sector-item">
+                        <div class="sector-image">
+                            <img src="{{ url_for('static', filename='images/cinehall.jpeg') }}" alt="Cinema Halls">
+                        </div>
+                        <div class="sector-details">
+                            <h4>Cinema Halls</h4>
+                            <p>Specialized AV, acoustic and lighting system design focused on sound accuracy and
+                                audience immersion.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-
-        <div class="sector-grid">
-            <div class="sector-item">
-                <div class="sector-image sector-carousel" data-carousel="convention">
-                    <img src="{{ url_for('static', filename='images/Convention_Centres.jpeg') }}"
-                        alt="Convention Centres" class="sector-slide active">
-                    <img src="{{ url_for('static', filename='images/convention_centres_new.jpeg') }}"
-                        alt="Convention Centres" class="sector-slide">
-                </div>
-                <div class="sector-details">
-                    <h4>Convention Centres</h4>
-                    <p>ITPO Delhi, Minto Hall Bhopal, ICAR Convention Centre</p>
-                </div>
-            </div>
-
-            <div class="sector-item">
-                <div class="sector-image sector-carousel" data-carousel="infrastructure">
-                    <img src="{{ url_for('static', filename='images/Public_Infrastructure.jpeg') }}"
-                        alt="Public Infrastructure" class="sector-slide active">
-                    <img src="{{ url_for('static', filename='images/ravindra_bhawan.jpeg') }}"
-                        alt="Public Infrastructure" class="sector-slide">
-                </div>
-                <div class="sector-details">
-                    <h4>Public Infrastructure</h4>
-                    <p>National War Memorial, Vigyan Bhawan, Ravindra Bhawan</p>
-                </div>
-            </div>
-
-            <div class="sector-item">
-                <div class="sector-image sector-carousel" data-carousel="education">
-                    <img src="{{ url_for('static', filename='images/iitd.jpg') }}" alt="IIT Delhi"
-                        class="sector-slide active">
-                    <img src="{{ url_for('static', filename='images/iitjodhpur.jpeg') }}" alt="IIT Jodhpur"
-                        class="sector-slide">
-                </div>
-                <div class="sector-details">
-                    <h4>Education</h4>
-                    <p>IIT Bhilai, IIT Jodhpur, IIT Roorkee, AIIMS Jodhpur</p>
-                </div>
-            </div>
-
-            <div class="sector-item">
-                <div class="sector-image sector-carousel" data-carousel="experience">
-                    <img src="{{ url_for('static', filename='images/gujarat-science-city.jpg') }}"
-                        alt="Experience Centres" class="sector-slide active">
-                    <img src="{{ url_for('static', filename='images/bnajara.jpeg') }}" alt="Experience Centres"
-                        class="sector-slide">
-                </div>
-                <div class="sector-details">
-                    <h4>Experience Centres</h4>
-                    <p>Banjara Museum, Science City Ahmedabad</p>
-                </div>
-            </div>
-
-            <div class="sector-item">
-                <div class="sector-image sector-carousel" data-carousel="worship">
-                    <img src="{{ url_for('static', filename='images/Ganga-Ghat.jpg') }}" alt="Ganga Ghats Varanasi"
-                        class="sector-slide active">
-                    <img src="{{ url_for('static', filename='images/kedarnath.jpg') }}" alt="Kedarnath Temple"
-                        class="sector-slide">
-                </div>
-                <div class="sector-details">
-                    <h4>Places of Worship</h4>
-                    <p>Ganga Ghats, Kedarnath Temple</p>
-                </div>
-            </div>
-        </div>
-
     </div>
 </section>
 
@@ -1523,7 +1622,7 @@
                     <div class="point-marker"></div>
                     <div class="point-content">
                         <h4>Operational Ease</h4>
-                        <p>Systems built to stay easy to operate, maintain, and scale for the future.</p>
+                        <p>Systems engineered for ease of operation, maintenance and future scalability.</p>
                     </div>
                 </div>
 
@@ -1924,6 +2023,118 @@
                     heroContent.style.opacity = 1 - (scrolled / window.innerHeight);
                 }
             });
+        }
+
+        /* ================= DRAGGABLE INFINITE MARQUEE ================= */
+
+        const track = document.getElementById('sector-track');
+        const wrapper = document.querySelector('.scroll-track-wrapper');
+
+        if (track && wrapper) {
+            // Configuration
+            const speed = 0.5; // Auto-scroll speed
+            let position = 0;
+            let isDragging = false;
+            let startX = 0;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+            let animationID;
+            let startTime = 0;
+
+            // Clone items for infinite loop
+            const items = Array.from(track.children);
+            items.forEach(item => {
+                const clone = item.cloneNode(true);
+                track.appendChild(clone);
+            });
+
+            // Calculate total width of original set
+            // We need to wait for images to load ideally, or just measure
+            // Since images have strict dimensions in CSS, this should be fine.
+            // But let's recalculate on window load just in case.
+
+            let totalWidth = 0;
+
+            function calculateWidth() {
+                const style = window.getComputedStyle(track);
+                const gap = parseFloat(style.gap) || 0;
+                // Measure one full set width
+                // The gap applies between items. length * (width + gap) - gap? 
+                // Easier: measure total scrollWidth of cloned track and divide by 2
+                // But let's do it safely after layout.
+                const firstItem = track.children[0];
+                const itemWidth = firstItem.offsetWidth;
+                // Gap is 30px from CSS
+                totalWidth = (itemWidth + 30) * items.length;
+            }
+
+            // Initial calc
+            window.addEventListener('load', calculateWidth);
+            calculateWidth(); // Try immediately too
+
+            // Animation Loop
+            function animate() {
+                if (!isDragging) {
+                    position -= speed;
+                }
+
+                // Infinite Check
+                // If we've scrolled past the first set (position <= -totalWidth)
+                if (totalWidth > 0 && position <= -totalWidth) {
+                    position += totalWidth;
+                }
+                // If dragging pulled us into positive (position > 0)
+                if (position > 0) {
+                    position -= totalWidth;
+                }
+
+                track.style.transform = `translateX(${position}px)`;
+                animationID = requestAnimationFrame(animate);
+            }
+
+            // Start Animation
+            animationID = requestAnimationFrame(animate);
+
+            // Drag Events
+            wrapper.addEventListener('mousedown', startDrag);
+            wrapper.addEventListener('touchstart', startDrag);
+
+            wrapper.addEventListener('mouseup', endDrag);
+            wrapper.addEventListener('mouseleave', endDrag);
+            wrapper.addEventListener('touchend', endDrag);
+
+            wrapper.addEventListener('mousemove', moveDrag);
+            wrapper.addEventListener('touchmove', moveDrag);
+
+            function getPositionX(event) {
+                return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+            }
+
+            function startDrag(event) {
+                // Prevent default drag behavrior on images
+                if (event.type === 'mousedown') event.preventDefault();
+
+                isDragging = true;
+                startX = getPositionX(event);
+                prevTranslate = position;
+                wrapper.classList.add('grabbing');
+            }
+
+            function moveDrag(event) {
+                if (isDragging) {
+                    const currentX = getPositionX(event);
+                    const diff = currentX - startX;
+                    position = prevTranslate + diff;
+                }
+            }
+
+            function endDrag() {
+                isDragging = false;
+                wrapper.classList.remove('grabbing');
+            }
+
+            // Handle Resize to recalculate width
+            window.addEventListener('resize', calculateWidth);
         }
 
     });
