@@ -163,6 +163,13 @@
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
     }
 
+    /* Fix for long email overflow */
+    .contact-detail-item .info a,
+    .contact-detail-item .info p {
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+
     .contact-detail-item .icon {
         width: 50px;
         height: 50px;
@@ -365,6 +372,26 @@
 
         .contact-detail-item:hover {
             transform: none;
+        }
+
+        .contact-detail-item {
+            padding: 15px;
+            gap: 15px;
+        }
+
+        .contact-detail-item .icon {
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+        }
+
+        .contact-detail-item .info h5 {
+            font-size: 1rem;
+        }
+
+        .contact-detail-item .info a,
+        .contact-detail-item .info p {
+            font-size: 0.95rem;
         }
     }
 </style>
