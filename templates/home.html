@@ -57,8 +57,10 @@
         z-index: 2;
         text-align: center;
         max-width: 1000px;
-        padding: 20px 40px 0 40px;
-        margin-top: -20px;
+        padding: 120px 40px 0 40px;
+        /* Reduced top padding to bring it closer to navbar */
+        margin-top: 0;
+        /* Slight upward shift for better balance */
     }
 
     .hero-headline {
@@ -493,6 +495,7 @@
         gap: 30px;
         padding: 0 0;
         will-change: transform;
+        /* createHardwareAcceleratedLayer */
         transform: translate3d(0, 0, 0);
     }
 
@@ -719,37 +722,12 @@
 
     /* 14 and 15-inch Laptops (1366px-1536px) */
     @media (max-width: 1536px) {
-        .hero-immersive {
-            min-height: 90vh;
-        }
-
         .hero-headline {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
+            font-size: 3.8rem;
         }
 
         .hero-center-content {
             max-width: 900px;
-            padding: 20px 40px;
-            margin-top: 0;
-        }
-
-        .hero-subtext {
-            font-size: 1.08rem;
-            margin-bottom: 30px;
-        }
-
-        .hero-stats-inline {
-            gap: 35px;
-            margin-bottom: 35px;
-        }
-
-        .stat-num {
-            font-size: 2.2rem;
-        }
-
-        .stat-suffix {
-            font-size: 1.3rem;
         }
 
         .advantage-central-layout {
@@ -765,51 +743,16 @@
     }
 
     @media (max-width: 1366px) {
-        .hero-immersive {
-            min-height: 85vh;
-        }
-
         .hero-headline {
-            font-size: 3rem;
-            line-height: 1.15;
-            margin-bottom: 18px;
+            font-size: 3.2rem;
         }
 
         .hero-subtext {
             font-size: 1rem;
-            line-height: 1.6;
         }
 
         .hero-center-content {
-            padding: 15px 30px;
-            margin-top: 0;
-        }
-
-        .hero-stats-inline {
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .stat-num {
-            font-size: 2rem;
-        }
-
-        .stat-suffix {
-            font-size: 1.2rem;
-        }
-
-        .stat-desc {
-            font-size: 0.8rem;
-        }
-
-        .hero-actions {
-            gap: 15px;
-        }
-
-        .btn-gold,
-        .btn-outline-light {
-            padding: 12px 28px;
-            font-size: 0.85rem;
+            padding-top: 10px;
         }
 
         .image-placeholder-circle {
@@ -853,6 +796,7 @@
             grid-template-columns: 1fr;
         }
 
+        /* Advantage Section - Stack Vertically */
         .advantage-central-layout {
             grid-template-columns: 1fr;
             gap: 40px;
@@ -1017,11 +961,14 @@
             const prevBtn = container.querySelector('.carousel-prev');
             if (!nextBtn || !prevBtn) return;
 
+            // Get slides
+            // For Hero: .hero-slide; For Sector: .sector-slide
             let slides = container.querySelectorAll('.sector-slide');
             if (slides.length === 0) slides = container.querySelectorAll('.hero-slide');
             if (slides.length < 2) return;
 
             let currentIndex = 0;
+            // Find current active
             slides.forEach((s, i) => {
                 if (s.classList.contains('active')) currentIndex = i;
             });
@@ -1043,8 +990,11 @@
 
             nextBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                e.stopPropagation();
+                e.stopPropagation(); // Prevent bubbling if needed
                 nextSlide();
+                // Optional: Reset auto-scroll interval if we had access to it, 
+                // but local scope specific interval is hard to reach here. 
+                // We'll just let it slide manually.
             });
 
             prevBtn.addEventListener('click', (e) => {
@@ -1054,8 +1004,10 @@
             });
         };
 
+        // Initialize for Sector Carousels
         document.querySelectorAll('.sector-carousel').forEach(setupCarouselNav);
 
+        // Initialize for Hero (if we added arrows there)
         const heroSection = document.querySelector('.hero-immersive');
         if (heroSection) setupCarouselNav(heroSection);
     });
@@ -1727,6 +1679,7 @@
     /* Scoped Styles for Central Layout */
     .advantage-premium {
         background: #f5f2eb;
+        /* Cream light to match above */
         padding: 100px 0;
         color: var(--navy-deep);
         font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -1747,12 +1700,14 @@
     .advantage-central-layout {
         display: grid;
         grid-template-columns: 1fr 450px 1fr;
+        /* 3 Columns: Left, Imagewidth, Right */
         gap: 40px;
         max-width: 1400px;
         margin: 0 auto;
         align-items: center;
     }
 
+    /* Column Specifics */
     .adv-side-col {
         display: flex;
         flex-direction: column;
@@ -1769,9 +1724,11 @@
         align-items: flex-start;
     }
 
+    /* Point Items */
     .adv-point {
         display: flex;
         align-items: center;
+        /* Aligns marker with title roughly */
         gap: 20px;
         max-width: 400px;
         transition: transform 0.3s ease;
@@ -1784,6 +1741,7 @@
     .point-content h4 {
         color: var(--navy-deep);
         font-size: 1.4rem;
+        /* Increased from 1.1rem (~25% bigger) */
         margin-bottom: 8px;
         font-weight: 600;
     }
@@ -1791,6 +1749,7 @@
     .point-content p {
         color: #555;
         font-size: 1.15rem;
+        /* Increased from 0.9rem (~25% bigger) */
         line-height: 1.6;
         margin: 0;
     }
@@ -1801,8 +1760,10 @@
         height: 12px;
         border-radius: 50%;
         background: var(--gold-accent);
+        /* Simple dot style */
     }
 
+    /* Center Image Placeholder */
     .adv-center-col {
         display: flex;
         justify-content: center;
@@ -1871,6 +1832,7 @@
         padding: 20px;
     }
 
+    /* Footer CTA */
     .advantage-footer-cta {
         text-align: center;
         margin-top: 60px;
@@ -1919,18 +1881,27 @@
 
         .adv-side-col.left-col .adv-point {
             flex-direction: row-reverse;
+            /* Marker on left */
             justify-content: flex-end;
+            /* Align to start */
         }
 
+        /* Reset for mobile consistency - markers always on left */
         .adv-point {
             width: 100%;
             max-width: 100%;
             justify-content: flex-start;
         }
 
+        /* Fix order of marker/content for left col on mobile */
         .adv-side-col.left-col .adv-point {
             flex-direction: row;
+            /* Standard ordering: Marker -> Content */
         }
+
+        /* Wait, Left Col desktop is Content -> Marker. 
+           Mobile should ideally be Marker -> Content for all.
+        */
 
         .adv-side-col.left-col .adv-point .point-marker {
             order: -1;
@@ -1938,6 +1909,7 @@
 
         .adv-center-col {
             order: -1;
+            /* Image on top on mobile? Or hidden? User didn't specify. Keeping in flow or top. */
             margin-bottom: 40px;
         }
     }
@@ -1974,8 +1946,10 @@
         }
 
         /* ============== SECTOR CAROUSEL ================= */
+        /* ============== SECTOR CAROUSEL (SYNCHRONIZED) ================= */
         const carousels = document.querySelectorAll('.sector-carousel');
 
+        // Only start if we have carousels
         if (carousels.length > 0) {
             setInterval(() => {
                 carousels.forEach((carousel) => {
@@ -1983,18 +1957,21 @@
                     if (cSlides.length < 2) return;
 
                     const currentSlide = carousel.querySelector('.sector-slide.active');
-                    if (!currentSlide) return;
+                    if (!currentSlide) return; // Safety check
 
                     const nextSlide = currentSlide.nextElementSibling || cSlides[0];
 
+                    // Remove exit class from all
                     cSlides.forEach(s => s.classList.remove('exit'));
 
+                    // Current slide slides out to the right (or left depending on CSS)
                     currentSlide.classList.remove('active');
                     currentSlide.classList.add('exit');
 
+                    // Next slide slides in
                     nextSlide.classList.add('active');
                 });
-            }, 5000);
+            }, 5000); // Synchronized 5-second interval for ALL
         }
 
         /* ================= INTERSECTION OBSERVER FOR SCROLL ANIMATIONS ================= */
@@ -2085,7 +2062,8 @@
         const wrapper = document.querySelector('.scroll-track-wrapper');
 
         if (track && wrapper) {
-            const speed = 0.5;
+            // Configuration
+            const speed = 0.5; // Auto-scroll speed
             let position = 0;
             let isDragging = false;
             let startX = 0;
@@ -2094,33 +2072,49 @@
             let animationID;
             let startTime = 0;
 
+            // Clone items for infinite loop
             const items = Array.from(track.children);
             items.forEach(item => {
                 const clone = item.cloneNode(true);
                 track.appendChild(clone);
             });
 
+            // Calculate total width of original set
+            // We need to wait for images to load ideally, or just measure
+            // Since images have strict dimensions in CSS, this should be fine.
+            // But let's recalculate on window load just in case.
+
             let totalWidth = 0;
 
             function calculateWidth() {
                 const style = window.getComputedStyle(track);
                 const gap = parseFloat(style.gap) || 0;
+                // Measure one full set width
+                // The gap applies between items. length * (width + gap) - gap? 
+                // Easier: measure total scrollWidth of cloned track and divide by 2
+                // But let's do it safely after layout.
                 const firstItem = track.children[0];
                 const itemWidth = firstItem.offsetWidth;
+                // Gap is 30px from CSS
                 totalWidth = (itemWidth + 30) * items.length;
             }
 
+            // Initial calc
             window.addEventListener('load', calculateWidth);
-            calculateWidth();
+            calculateWidth(); // Try immediately too
 
+            // Animation Loop
             function animate() {
                 if (!isDragging) {
                     position -= speed;
                 }
 
+                // Infinite Check
+                // If we've scrolled past the first set (position <= -totalWidth)
                 if (totalWidth > 0 && position <= -totalWidth) {
                     position += totalWidth;
                 }
+                // If dragging pulled us into positive (position > 0)
                 if (position > 0) {
                     position -= totalWidth;
                 }
@@ -2129,8 +2123,10 @@
                 animationID = requestAnimationFrame(animate);
             }
 
+            // Start Animation
             animationID = requestAnimationFrame(animate);
 
+            // Drag Events
             wrapper.addEventListener('mousedown', startDrag);
             wrapper.addEventListener('touchstart', startDrag);
 
@@ -2146,6 +2142,7 @@
             }
 
             function startDrag(event) {
+                // Prevent default drag behavrior on images
                 if (event.type === 'mousedown') event.preventDefault();
 
                 isDragging = true;
@@ -2167,6 +2164,7 @@
                 wrapper.classList.remove('grabbing');
             }
 
+            // Handle Resize to recalculate width
             window.addEventListener('resize', calculateWidth);
         }
 
