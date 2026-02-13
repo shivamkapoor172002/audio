@@ -13,7 +13,8 @@
     /* Hero Section with Diagonal Cut */
     .process-hero {
         background: var(--navy-primary);
-        padding: 140px 0 180px;
+        padding: 100px 0 160px;
+        /* Reduced top padding to move content closer to navbar */
         position: relative;
         overflow: hidden;
         clip-path: polygon(0 0, 100% 0, 100% calc(100% - 80px), 0 100%);
@@ -370,6 +371,34 @@
 
     .cta-button:hover::before {
         left: 0;
+    }
+
+    @media (max-width: 1536px) {
+        .hero-content h1 {
+            font-size: 3.5rem;
+        }
+
+        .process-hero {
+            padding: 90px 0 140px;
+        }
+    }
+
+    @media (max-width: 1366px) {
+        .hero-content h1 {
+            font-size: 3rem;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+        }
+
+        .process-hero {
+            padding: 85px 0 120px;
+        }
+
+        .step-title {
+            font-size: 1.8rem;
+        }
     }
 
     /* Responsive */

@@ -56,8 +56,11 @@
         position: relative;
         z-index: 2;
         text-align: center;
-        max-width: 900px;
-        padding: 80px 40px 0 40px;
+        max-width: 1000px;
+        padding: 20px 40px 0 40px;
+        /* Reduced top padding to bring it closer to navbar */
+        margin-top: -40px;
+        /* Slight upward shift for better balance */
     }
 
     .hero-headline {
@@ -717,24 +720,52 @@
 
     /* Responsive Design - Mobile First Approach */
 
-    /* 14-inch Laptops (1366px-1440px) */
-    @media (max-width: 1440px) {
+    /* 14 and 15-inch Laptops (1366px-1536px) */
+    @media (max-width: 1536px) {
+        .hero-headline {
+            font-size: 3.8rem;
+        }
+
+        .hero-center-content {
+            max-width: 900px;
+        }
+
         .advantage-central-layout {
-            grid-template-columns: 1fr 350px 1fr;
-            max-width: 1200px;
+            grid-template-columns: 1fr 320px 1fr;
+            max-width: 1100px;
+            gap: 30px;
         }
 
         .image-placeholder-circle {
-            width: 350px;
-            height: 350px;
+            width: 320px;
+            height: 320px;
+        }
+    }
+
+    @media (max-width: 1366px) {
+        .hero-headline {
+            font-size: 3.2rem;
+        }
+
+        .hero-subtext {
+            font-size: 1rem;
+        }
+
+        .hero-center-content {
+            padding-top: 10px;
+        }
+
+        .image-placeholder-circle {
+            width: 280px;
+            height: 280px;
         }
 
         .point-content h4 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
 
         .point-content p {
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
     }
 
