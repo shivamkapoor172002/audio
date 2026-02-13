@@ -3,253 +3,790 @@
 {% block styles %}
 <style>
     /* ============================================
-       SERVICES PAGE STYLES - FRESH MODERN DESIGN
+       PREMIUM SERVICES PAGE - ARCHITECTURAL DESIGN
        ============================================ */
 
-    .services-intro {
-        padding: 120px 0;
-        background: linear-gradient(135deg, var(--cream-bg) 0%, #f5f2eb 100%);
-        text-align: center;
+    /* Hero Section - Immersive Visual */
+    .services-hero {
         position: relative;
+        height: 85vh;
+        min-height: 600px;
         overflow: hidden;
-    }
-
-    .services-intro::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -10%;
-        width: 600px;
-        height: 600px;
-        background: radial-gradient(circle, rgba(196, 160, 82, 0.08) 0%, transparent 70%);
-        border-radius: 50%;
-    }
-
-    .services-intro .section-title {
-        font-size: 5rem;
-        display: inline-block;
-        position: relative;
-    }
-
-    .services-intro .script-subtitle {
-        font-family: var(--font-script);
-        font-size: 2rem;
-        color: var(--gold-accent);
-        display: block;
-        margin-top: 10px;
-    }
-
-    /* List Layout - Enhanced */
-    .services-list-section {
-        background: var(--cream-bg);
-        padding: 80px 0;
-    }
-
-    .service-row {
         display: flex;
         align-items: center;
-        gap: 60px;
-        margin-bottom: 100px;
-        opacity: 0;
-        transform: translateY(30px);
-        animation: fadeInUp 0.8s ease forwards;
+        justify-content: center;
     }
 
-    @keyframes fadeInUp {
+    .services-hero-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 120%;
+        background: url('{{ url_for("static", filename="images/speakers_with_screen.jpg") }}') center/cover no-repeat;
+        will-change: transform;
+    }
+
+    .services-hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(2, 35, 80, 0.85) 0%, rgba(2, 35, 80, 0.65) 100%);
+    }
+
+    .services-hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        max-width: 900px;
+        padding: 0 40px;
+        opacity: 0;
+        animation: heroFadeIn 1.2s ease forwards;
+        animation-delay: 0.3s;
+    }
+
+    @keyframes heroFadeIn {
+        to {
+            opacity: 1;
+        }
+    }
+
+    .services-hero-label {
+        font-size: 0.85rem;
+        color: var(--gold-accent);
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        font-weight: 600;
+        margin-bottom: 24px;
+        display: block;
+        opacity: 0;
+        animation: slideUp 0.8s ease forwards;
+        animation-delay: 0.5s;
+    }
+
+    .services-hero h1 {
+        font-family: var(--font-heading);
+        font-size: 5rem;
+        font-weight: 700;
+        color: var(--cream-light);
+        line-height: 1.1;
+        margin-bottom: 30px;
+        letter-spacing: -2px;
+    }
+
+    .services-hero h1 span {
+        display: block;
+        opacity: 0;
+        animation: slideUp 0.8s ease forwards;
+    }
+
+    .services-hero h1 span:nth-child(1) {
+        animation-delay: 0.6s;
+    }
+
+    .services-hero h1 span:nth-child(2) {
+        animation-delay: 0.75s;
+    }
+
+    .services-hero h1 span:nth-child(3) {
+        animation-delay: 0.9s;
+    }
+
+    @keyframes slideUp {
         to {
             opacity: 1;
             transform: translateY(0);
         }
+
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
     }
 
-    .service-row:nth-child(1) {
-        animation-delay: 0.1s;
+    .services-hero-tagline {
+        font-size: 1.25rem;
+        color: rgba(245, 240, 230, 0.8);
+        line-height: 1.6;
+        max-width: 600px;
+        margin: 0 auto 50px;
+        opacity: 0;
+        animation: slideUp 0.8s ease forwards;
+        animation-delay: 1.1s;
     }
 
-    .service-row:nth-child(2) {
-        animation-delay: 0.2s;
+    .hero-scroll-indicator {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        animation: fadeInPulse 2s ease forwards;
+        animation-delay: 1.5s;
     }
 
-    .service-row:nth-child(3) {
-        animation-delay: 0.3s;
+    @keyframes fadeInPulse {
+        0% {
+            opacity: 0;
+            transform: translate(-50%, -10px);
+        }
+
+        100% {
+            opacity: 0.6;
+            transform: translate(-50%, 0);
+        }
     }
 
-    .service-row:nth-child(4) {
-        animation-delay: 0.4s;
+    .scroll-text {
+        font-size: 0.75rem;
+        color: rgba(245, 240, 230, 0.6);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 8px;
     }
 
-    .service-row:nth-child(5) {
-        animation-delay: 0.5s;
+    .scroll-line {
+        width: 1px;
+        height: 40px;
+        background: rgba(201, 169, 98, 0.5);
+        margin: 0 auto;
+        animation: scrollPulse 2s ease-in-out infinite;
     }
 
-    .services-list-section .service-row:last-child {
-        margin-bottom: 0;
+    @keyframes scrollPulse {
+
+        0%,
+        100% {
+            opacity: 0.3;
+            transform: scaleY(0.8);
+        }
+
+        50% {
+            opacity: 1;
+            transform: scaleY(1);
+        }
     }
 
-    .service-row.reverse {
+    /* Services Intro Header - Navy Background */
+    .services-intro-header {
+        background: var(--navy-primary);
+        padding: 140px 0 80px;
+        text-align: center;
+        position: relative;
+        margin-top: 80px;
+    }
+
+    .services-intro-header h2 {
+        font-family: var(--font-heading);
+        font-size: 3.5rem;
+        color: var(--gold-accent);
+        margin-bottom: 12px;
+        font-weight: 700;
+        letter-spacing: -1px;
+    }
+
+    .services-intro-header p {
+        font-size: 1.15rem;
+        color: var(--cream-light);
+        margin: 0;
+    }
+
+    /* Services Section - Premium Cards */
+    .services-premium {
+        background: var(--cream-bg);
+        padding: 120px 0;
+    }
+
+    .services-header {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto 100px;
+    }
+
+    .services-header .label {
+        font-size: 0.85rem;
+        color: var(--gold-accent);
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-weight: 600;
+        margin-bottom: 16px;
+        display: block;
+    }
+
+    .services-header h2 {
+        font-family: var(--font-heading);
+        font-size: 3.5rem;
+        color: var(--navy-primary);
+        margin-bottom: 24px;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    .services-header p {
+        font-size: 1.15rem;
+        color: #666;
+        line-height: 1.7;
+    }
+
+    /* Premium Service Card */
+    .service-card {
+        display: flex;
+        gap: 80px;
+        align-items: center;
+        margin-bottom: 120px;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .service-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .service-card.reverse {
         flex-direction: row-reverse;
     }
 
-    .service-text {
+    .service-card-image {
         flex: 1;
         position: relative;
-        padding: 30px 0;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
     }
 
-    .service-text::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 60px;
-        height: 4px;
-        background: linear-gradient(90deg, var(--gold-accent) 0%, transparent 100%);
-        border-radius: 2px;
-    }
-
-    .service-row.reverse .service-text::before {
-        left: auto;
-        right: 0;
-        background: linear-gradient(270deg, var(--gold-accent) 0%, transparent 100%);
-    }
-
-    .service-img {
-        flex: 1;
-        position: relative;
-    }
-
-    .service-img::before {
-        content: '';
-        position: absolute;
-        top: -15px;
-        left: -15px;
-        right: 15px;
-        bottom: 15px;
-        background: linear-gradient(135deg, rgba(196, 160, 82, 0.15) 0%, rgba(196, 160, 82, 0.05) 100%);
-        border-radius: 12px;
-        z-index: 0;
-    }
-
-    .service-row.reverse .service-img::before {
-        left: 15px;
-        right: -15px;
-        background: linear-gradient(225deg, rgba(196, 160, 82, 0.15) 0%, rgba(196, 160, 82, 0.05) 100%);
-    }
-
-    .service-img img {
-        position: relative;
-        z-index: 1;
+    .service-card-image img {
         width: 100%;
-        border-radius: 12px;
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        height: 420px;
         object-fit: cover;
-        height: 350px;
+        display: block;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .service-img img:hover {
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+    .service-card:hover .service-card-image img {
+        transform: scale(1.05);
     }
 
-    .service-text h3 {
+    .service-card-content {
+        flex: 1;
+        padding: 40px 0;
+    }
+
+    .service-number {
         font-family: var(--font-heading);
-        font-size: 2.2rem;
+        font-size: 0.9rem;
+        color: var(--gold-accent);
+        letter-spacing: 2px;
+        font-weight: 600;
+        margin-bottom: 16px;
+        display: block;
+    }
+
+    .service-card-content h3 {
+        font-family: var(--font-heading);
+        font-size: 2.4rem;
         color: var(--navy-primary);
-        margin-bottom: 20px;
-        margin-top: 15px;
-        line-height: 1.2;
-        position: relative;
+        margin-bottom: 24px;
+        line-height: 1.25;
         transition: color 0.3s ease;
     }
 
-    .service-row:hover .service-text h3 {
+    .service-card:hover .service-card-content h3 {
         color: var(--navy-dark);
     }
 
-    .service-text p {
-        font-size: 1.1rem;
+    .service-features {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 30px 0;
+    }
+
+    .service-features li {
+        font-size: 1.05rem;
         color: #555;
         line-height: 1.8;
-        max-width: 550px;
+        padding-left: 32px;
+        position: relative;
+        margin-bottom: 12px;
     }
 
-    /* Decorative Number Badge */
-    .service-text::after {
-        content: attr(data-number);
+    .service-features li::before {
+        content: '→';
         position: absolute;
-        right: -20px;
-        top: -10px;
-        font-family: var(--font-heading);
-        font-size: 8rem;
-        font-weight: 700;
-        color: rgba(196, 160, 82, 0.06);
-        line-height: 1;
+        left: 0;
+        color: var(--gold-accent);
+        font-weight: 600;
+    }
+
+    .service-learn-more {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--navy-primary);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.95rem;
+        letter-spacing: 0.5px;
+        transition: gap 0.3s ease;
+    }
+
+    .service-learn-more:hover {
+        gap: 12px;
+        color: var(--gold-accent);
+    }
+
+    /* Transition Divider */
+    .section-divider {
+        height: 80px;
+        background: var(--cream-bg);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .section-divider::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 60px;
+        height: 2px;
+        background: var(--gold-accent);
+        opacity: 0.4;
+    }
+
+    /* Sectors Section - Categorized Grid */
+    .sectors-premium {
+        background: var(--cream-bg);
+        padding: 100px 0 120px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .sectors-premium::before {
+        content: '';
+        position: absolute;
+        top: -20%;
+        right: -10%;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(201, 169, 98, 0.08) 0%, transparent 70%);
+        border-radius: 50%;
         pointer-events: none;
-        z-index: -1;
     }
 
-    .service-row.reverse .service-text::after {
-        right: auto;
-        left: -20px;
+    .sectors-header {
+        text-align: center;
+        margin-bottom: 80px;
+        position: relative;
+        z-index: 1;
     }
 
-    /* Responsive */
+    .sectors-header .label {
+        font-size: 0.85rem;
+        color: var(--gold-accent);
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-weight: 600;
+        margin-bottom: 16px;
+        display: block;
+    }
+
+    .sectors-header h2 {
+        font-family: var(--font-heading);
+        font-size: 3.5rem;
+        color: var(--navy-primary);
+        margin-bottom: 24px;
+        font-weight: 700;
+    }
+
+    .sectors-header p {
+        font-size: 1.15rem;
+        color: #666;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    /* Category Group */
+    .sector-category {
+        margin-bottom: 60px;
+        position: relative;
+        z-index: 1;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .sector-category.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .category-title {
+        font-family: var(--font-heading);
+        font-size: 1.4rem;
+        color: var(--navy-primary);
+        margin-bottom: 32px;
+        padding-left: 20px;
+        border-left: 3px solid var(--gold-accent);
+        opacity: 0.9;
+    }
+
+    .sector-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .sector-card {
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid rgba(201, 169, 98, 0.15);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .sector-card:hover {
+        transform: translateY(-6px);
+        background: #fff;
+        border-color: rgba(201, 169, 98, 0.5);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .sector-card-image {
+        width: 100%;
+        height: 220px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .sector-card-image::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 60%;
+        background: linear-gradient(to top, rgba(2, 35, 80, 0.7), transparent);
+        pointer-events: none;
+    }
+
+    .sector-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+        filter: brightness(0.8);
+    }
+
+    .sector-card:hover .sector-card-image img {
+        transform: scale(1.08);
+        filter: brightness(0.95);
+    }
+
+    .sector-card-content {
+        padding: 28px 30px;
+    }
+
+    .sector-card-content h4 {
+        font-family: var(--font-heading);
+        font-size: 1.35rem;
+        color: var(--navy-primary);
+        margin-bottom: 12px;
+        font-weight: 600;
+        transition: color 0.3s ease;
+    }
+
+    .sector-card:hover .sector-card-content h4 {
+        color: var(--gold-accent);
+    }
+
+    .sector-card-content p {
+        font-size: 0.95rem;
+        color: #666;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    /* Expandable Additional Sectors */
+    .sectors-expandable {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .sectors-expandable.expanded {
+        max-height: 3000px;
+    }
+
+    .expand-sectors-btn {
+        display: block;
+        margin: 50px auto 0;
+        padding: 16px 40px;
+        background: transparent;
+        border: 2px solid var(--gold-accent);
+        color: var(--gold-accent);
+        font-weight: 600;
+        font-size: 0.95rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .expand-sectors-btn:hover {
+        background: var(--gold-accent);
+        color: var(--navy-deep);
+        transform: translateY(-2px);
+    }
+
+    .expand-sectors-btn.hidden {
+        display: none;
+    }
+
+    /* CTA Section - Conversion Focused */
+    .services-cta {
+        background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-deep) 100%);
+        padding: 100px 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .services-cta::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--gold-accent), transparent);
+    }
+
+    .services-cta::after {
+        content: '';
+        position: absolute;
+        bottom: 10%;
+        left: -5%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(201, 169, 98, 0.04) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+
+    .cta-content {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    .cta-content h2 {
+        font-family: var(--font-heading);
+        font-size: 3.2rem;
+        color: var(--cream-light);
+        margin-bottom: 20px;
+        line-height: 1.3;
+    }
+
+    .cta-content p {
+        font-size: 1.2rem;
+        color: rgba(245, 240, 230, 0.75);
+        margin-bottom: 40px;
+        line-height: 1.7;
+    }
+
+    .cta-buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin-bottom: 50px;
+        flex-wrap: wrap;
+    }
+
+    .cta-btn-primary {
+        display: inline-block;
+        padding: 18px 45px;
+        background: var(--gold-accent);
+        color: var(--navy-deep);
+        text-decoration: none;
+        font-weight: 600;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        letter-spacing: 0.5px;
+        font-size: 1rem;
+    }
+
+    .cta-btn-primary:hover {
+        background: #d4b87a;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(201, 169, 98, 0.4);
+    }
+
+    .cta-btn-secondary {
+        display: inline-block;
+        padding: 18px 45px;
+        background: transparent;
+        color: var(--cream-light);
+        text-decoration: none;
+        font-weight: 600;
+        border-radius: 4px;
+        border: 2px solid rgba(245, 240, 230, 0.3);
+        transition: all 0.3s ease;
+        letter-spacing: 0.5px;
+        font-size: 1rem;
+    }
+
+    .cta-btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(245, 240, 230, 0.6);
+        transform: translateY(-3px);
+    }
+
+    .cta-contact-info {
+        display: flex;
+        gap: 40px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .cta-contact-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: rgba(245, 240, 230, 0.6);
+        font-size: 0.95rem;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .cta-contact-item:hover {
+        color: var(--gold-accent);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+        .services-hero h1 {
+            font-size: 4rem;
+        }
+
+        .service-card {
+            gap: 60px;
+            margin-bottom: 100px;
+        }
+    }
+
     @media (max-width: 992px) {
-        .services-grid {
-            grid-template-columns: 1fr;
+        .services-hero h1 {
+            font-size: 3.2rem;
         }
 
-        .service-text h3 {
-            font-size: 1.9rem;
+        .services-header h2,
+        .sectors-header h2 {
+            font-size: 2.8rem;
         }
 
-        .service-img img {
-            height: 300px;
+        .service-card {
+            flex-direction: column !important;
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .service-card-image {
+            width: 100%;
+        }
+
+        .sector-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .cta-content h2 {
+            font-size: 2.6rem;
         }
     }
 
     @media (max-width: 768px) {
-        .service-row {
+        .services-hero {
+            height: 70vh;
+            min-height: 500px;
+        }
+
+        .services-hero h1 {
+            font-size: 2.5rem;
+        }
+
+        .services-hero-tagline {
+            font-size: 1.1rem;
+        }
+
+        .services-premium {
+            padding: 80px 0;
+        }
+
+        .services-header {
+            margin-bottom: 60px;
+        }
+
+        .services-header h2 {
+            font-size: 2.2rem;
+        }
+
+        .service-card {
+            margin-bottom: 60px;
+        }
+
+        .service-card-image img {
+            height: 300px;
+        }
+
+        .service-card-content h3 {
+            font-size: 1.9rem;
+        }
+
+        .sector-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .sectors-header h2 {
+            font-size: 2.2rem;
+        }
+
+        .sector-category {
+            margin-bottom: 50px;
+        }
+
+        .cta-content h2 {
+            font-size: 2rem;
+        }
+
+        .cta-buttons {
             flex-direction: column;
-            gap: 40px;
-            margin-bottom: 70px;
+            align-items: center;
         }
 
-        .service-row.reverse {
+        .cta-btn-primary,
+        .cta-btn-secondary {
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .cta-contact-info {
             flex-direction: column;
-        }
-
-        .services-intro .section-title {
-            font-size: 3rem;
-        }
-
-        .service-text::before,
-        .service-row.reverse .service-text::before {
-            width: 40px;
-            left: 0;
-            background: linear-gradient(90deg, var(--gold-accent) 0%, transparent 100%);
-        }
-
-        .service-img::before,
-        .service-row.reverse .service-img::before {
-            display: none;
-        }
-
-        .service-text::after,
-        .service-row.reverse .service-text::after {
-            font-size: 5rem;
-            right: 0;
-            left: auto;
-            opacity: 0.5;
-        }
-
-        .service-img img {
-            height: 250px;
-        }
-
-        .service-text p {
-            max-width: 100%;
+            gap: 20px;
         }
     }
 </style>
@@ -258,76 +795,412 @@
 {% block title %}Our Services - Audionix Engineers LLP{% endblock %}
 
 {% block content %}
-<!-- Page Header -->
-<header class="page-header services-header">
+
+
+<!-- Services Intro Header - Navy Background -->
+<section class="services-intro-header">
     <div class="container">
-        <h1>Our Services</h1>
-        <p class="subtitle">Where sound, sight and sense come together.</p>
+        <h2>Our Services</h2>
+        <p>Where sound, sight and sense come together.</p>
     </div>
-</header>
+</section>
 
-<!-- Services List -->
-<section class="section services-list-section">
+<!-- Services Section - Premium Cards -->
+<section class="services-premium">
     <div class="container">
-        <div class="service-row">
-            <div class="service-text" data-number="01">
+        <div class="services-header">
+            <span class="label">What We Do</span>
+            <h2>Our Core Expertise</h2>
+            <p>End-to-end consulting across AV, acoustics, lighting and ICT — from concept through commissioning.</p>
+        </div>
+
+        <div class="service-card">
+            <div class="service-card-image">
+                <img src="{{ url_for('static', filename='images/av.png') }}" alt="AV System Design">
+            </div>
+            <div class="service-card-content">
+                <span class="service-number">01</span>
                 <h3>AV System Design & Consulting</h3>
-                <p>End-to-end design for auditoriums, lecture halls, boardrooms, convention centres and public spaces.
-                    From requirement mapping and schematics to BoQs, drawings and tender-ready documents, everything
-                    needed to build a clear, reliable AV system.</p>
-            </div>
-            <div class="service-img">
-                <img src="{{ url_for('static', filename='images/speakers_with_screen.jpg') }}" alt="AV System Design">
+                <ul class="service-features">
+                    <li>Schematic design and system architecture</li>
+                    <li>Detailed BOQs and technical specifications</li>
+                    <li>Tender-ready documentation packages</li>
+                    <li>Site supervision and commissioning support</li>
+                </ul>
+                <a href="/contact" class="service-learn-more">Start a project →</a>
             </div>
         </div>
 
-        <div class="service-row reverse">
-            <div class="service-text" data-number="02">
+        <div class="service-card reverse">
+            <div class="service-card-image">
+                <img src="{{ url_for('static', filename='images/room.png') }}" alt="Room Acoustics">
+            </div>
+            <div class="service-card-content">
+                <span class="service-number">02</span>
                 <h3>Room Acoustics</h3>
-                <p>End-to-end acoustic planning including analysis, material selection and layout optimisation to
-                    deliver crisp speech clarity, balanced sound and an environment tailored to its purpose.</p>
-            </div>
-            <div class="service-img">
-                <img src="{{ url_for('static', filename='images/Auditorium.jpg') }}" alt="Room Acoustics">
-            </div>
-        </div>
-
-        <div class="service-row">
-            <div class="service-text" data-number="03">
-                <h3>Architectural & Stage Lighting Design</h3>
-                <p>Thoughtfully crafted lighting solutions that elevate both function and ambience. Ideal for
-                    auditoriums, multipurpose halls and performance spaces, with a focus on comfort, visibility and
-                    energy efficiency.</p>
-            </div>
-            <div class="service-img">
-                <img src="{{ url_for('static', filename='images/a_image_stage_spotlight.jpg') }}" alt="Stage Lighting">
+                <ul class="service-features">
+                    <li>Acoustic analysis and modeling</li>
+                    <li>Material selection and treatment design</li>
+                    <li>Speech clarity and RT60 optimization</li>
+                    <li>Noise control and sound isolation</li>
+                </ul>
+                <a href="/contact" class="service-learn-more">Start a project →</a>
             </div>
         </div>
 
-        <div class="service-row reverse">
-            <div class="service-text" data-number="04">
+        <div class="service-card">
+            <div class="service-card-image">
+                <img src="{{ url_for('static', filename='images/light.png') }}" alt="Lighting Design">
+            </div>
+            <div class="service-card-content">
+                <span class="service-number">03</span>
+                <h3>Architectural & Stage Lighting</h3>
+                <ul class="service-features">
+                    <li>Architectural lighting design</li>
+                    <li>Stage and performance lighting systems</li>
+                    <li>Energy-efficient solutions</li>
+                    <li>Control system integration</li>
+                </ul>
+                <a href="/contact" class="service-learn-more">Start a project →</a>
+            </div>
+        </div>
+
+        <div class="service-card reverse">
+            <div class="service-card-image">
+                <img src="{{ url_for('static', filename='images/value.png') }}" alt="Value Engineering">
+            </div>
+            <div class="service-card-content">
+                <span class="service-number">04</span>
                 <h3>Technical Review & Value Engineering</h3>
-                <p>Independent audits of OEM or contractor proposals to ensure accuracy, fairness and performance. We
-                    identify gaps, remove unnecessary costs and strengthen the overall system design.</p>
-            </div>
-            <div class="service-img">
-                <img src="{{ url_for('static', filename='images/a_tree_in_hand_with_some_coins_in_side.jpg') }}"
-                    alt="Value Engineering">
+                <ul class="service-features">
+                    <li>Independent proposal audits</li>
+                    <li>Cost optimization without compromise</li>
+                    <li>Gap identification and risk mitigation</li>
+                    <li>Performance verification</li>
+                </ul>
+                <a href="/contact" class="service-learn-more">Start a project →</a>
             </div>
         </div>
 
-        <div class="service-row">
-            <div class="service-text" data-number="05">
-                <h3>Information & Communication Technology</h3>
-                <p>Planning and design of IT and networking infrastructure for new and existing buildings, ensuring
-                    seamless connectivity, efficient communication and future-ready systems.</p>
+        <div class="service-card">
+            <div class="service-card-image">
+                <img src="{{ url_for('static', filename='images/it.png') }}" alt="ICT Infrastructure">
             </div>
-            <div class="service-img">
-                <img src="{{ url_for('static', filename='images/it.jpeg') }}" alt="ICT Infrastructure">
-
+            <div class="service-card-content">
+                <span class="service-number">05</span>
+                <h3>Information & Communication Technology</h3>
+                <ul class="service-features">
+                    <li>IT infrastructure planning and design</li>
+                    <li>Network architecture and cabling</li>
+                    <li>Future-ready scalable systems</li>
+                    <li>Integration with AV platforms</li>
+                </ul>
+                <a href="/contact" class="service-learn-more">Start a project →</a>
             </div>
         </div>
     </div>
 </section>
+
+<!-- Smooth Transition Divider -->
+<div class="section-divider"></div>
+
+<!-- Sectors Section - Categorized Premium Grid -->
+<section class="sectors-premium">
+    <div class="container">
+        <div class="sectors-header">
+            <span class="label">Sectors / Experience</span>
+            <h2>Sectors We Serve</h2>
+            <p>From mission-critical facilities to immersive public spaces.</p>
+        </div>
+
+        <!-- Category: Public & Civic -->
+        <div class="sector-category">
+            <h3 class="category-title">Public & Civic</h3>
+            <div class="sector-grid">
+                <div class="sector-card">
+                    <div class="sector-card-image">
+                        <img src="{{ url_for('static', filename='images/Convention_Centres.jpeg') }}"
+                            alt="Convention Centres">
+                    </div>
+                    <div class="sector-card-content">
+                        <h4>Convention Centres</h4>
+                        <p>Scalable AV, acoustics and lighting systems for multi-format events and conferences.</p>
+                    </div>
+                </div>
+
+                <div class="sector-card">
+                    <div class="sector-card-image">
+                        <img src="{{ url_for('static', filename='images/Public_Infrastructure.jpeg') }}"
+                            alt="Public Infrastructure">
+                    </div>
+                    <div class="sector-card-content">
+                        <h4>Public Infrastructure</h4>
+                        <p>High-reliability systems for civic environments requiring long-term serviceability.</p>
+                    </div>
+                </div>
+
+                <div class="sector-card">
+                    <div class="sector-card-image">
+                        <img src="{{ url_for('static', filename='images/judiciary.png') }}" alt="Judiciary">
+                    </div>
+                    <div class="sector-card-content">
+                        <h4>Judiciary</h4>
+                        <p>Precision speech environments supporting clarity and seamless proceedings.</p>
+                    </div>
+                </div>
+
+                <div class="sector-card">
+                    <div class="sector-card-image">
+                        <img src="{{ url_for('static', filename='images/bnajara.jpeg') }}" alt="Government">
+                    </div>
+                    <div class="sector-card-content">
+                        <h4>Government & Institutional</h4>
+                        <p>Secure, performance-driven AV systems for administrative buildings.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category: Education & Culture -->
+        <div class="sector-category">
+            <h3 class="category-title">Education & Culture</h3>
+            <div class="sector-grid">
+                <div class="sector-card">
+                    <div class="sector-card-image">
+                        <img src="{{ url_for('static', filename='images/iitd.jpg') }}" alt="Education">
+                    </div>
+                    <div class="sector-card-content">
+                        <h4>Education</h4>
+                        <p>Future-ready AV ecosystems for lecture halls and hybrid learning environments.</p>
+                    </div>
+                </div>
+
+                <div class="sector-card">
+                    <div class="sector-card-image">
+                        <img src="{{ url_for('static', filename='images/gujarat-science-city.jpg') }}" alt="Museums">
+                    </div>
+                    <div class="sector-card-content">
+                        <h4>Experience Centres & Museums</h4>
+                        <p>Immersive multimedia systems that enhance storytelling and visitor engagement.</p>
+                    </div>
+                </div>
+
+                <div class="sector-card">
+                    <div class="sector-card-image">
+                        <img src="{{ url_for('static', filename='images/audi.png') }}" alt="Performing Arts">
+                    </div>
+                    <div class="sector-card-content">
+                        <h4>Auditoriums & Performing Arts</h4>
+                        <p>Comprehensive AV, acoustics and stage lighting for large audience experiences.</p>
+                    </div>
+                </div>
+
+                <div class="sector-card">
+                    <div class="sector-card-image">
+                        <img src="{{ url_for('static', filename='images/iitjodhpur.jpeg') }}" alt="Research">
+                    </div>
+                    <div class="sector-card-content">
+                        <h4>Research & Training</h4>
+                        <p>Specialized AV systems for simulation rooms and technical learning centers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category: Commercial & Hospitality -->
+        <div class="sector-category">
+            <h3 class="category-title">Commercial & Hospitality</h3>
+            <div class="sector-grid">
+                <div class="sector-card">
+                    <div class="sector-card-image">
+                        <img src="{{ url_for('static', filename='images/board.png') }}" alt="Corporate">
+                    </div>
+                    <div class="sector-card-content">
+                        <h4>Corporate & Boardroom</h4>
+                        <p>Integrated AV and collaboration systems for executive boardrooms.</p>
+                    </div>
+                </div>
+
+                <div class="sector-card">
+                    <div class="sector-card-image">
+                        <img src="{{ url_for('static', filename='images/hospi.jpg') }}" alt="Hospitality">
+                    </div>
+                    <div class="sector-card-content">
+                        <h4>Hospitality (Hotels & Resorts)</h4>
+                        <p>Integrated AV, acoustics and lighting for ballrooms and conference spaces.</p>
+                    </div>
+                </div>
+
+                <div class="sector-card">
+                    <div class="sector-card-image">
+                        <img src="{{ url_for('static', filename='images/retail_mob.jpg') }}" alt="Retail">
+                    </div>
+                    <div class="sector-card-content">
+                        <h4>Retail Chains</h4>
+                        <p>Scalable background music and digital display infrastructure.</p>
+                    </div>
+                </div>
+
+                <div class="sector-card">
+                    <div class="sector-card-image">
+                        <img src="{{ url_for('static', filename='images/shop.png') }}" alt="Shopping Malls">
+                    </div>
+                    <div class="sector-card-content">
+                        <h4>Shopping Malls & Complexes</h4>
+                        <p>Public address, ambient audio and digital signage systems.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expandable Additional Sectors -->
+        <div class="sectors-expandable" id="additionalSectors">
+            <!-- Category: Technology & Infrastructure -->
+            <div class="sector-category">
+                <h3 class="category-title">Technology & Infrastructure</h3>
+                <div class="sector-grid">
+                    <div class="sector-card">
+                        <div class="sector-card-image">
+                            <img src="{{ url_for('static', filename='images/smart.jpeg') }}" alt="Smart Cities">
+                        </div>
+                        <div class="sector-card-content">
+                            <h4>Smart Cities & Urban</h4>
+                            <p>Public address networks and integrated communication systems.</p>
+                        </div>
+                    </div>
+
+                    <div class="sector-card">
+                        <div class="sector-card-image">
+                            <img src="{{ url_for('static', filename='images/control.png') }}" alt="Control Rooms">
+                        </div>
+                        <div class="sector-card-content">
+                            <h4>Command & Control Rooms</h4>
+                            <p>Mission-critical AV systems for monitoring and operational continuity.</p>
+                        </div>
+                    </div>
+
+                    <div class="sector-card">
+                        <div class="sector-card-image">
+                            <img src="{{ url_for('static', filename='images/stad.png') }}" alt="Stadiums">
+                        </div>
+                        <div class="sector-card-content">
+                            <h4>Stadiums & Large Venues</h4>
+                            <p>Distributed audio and display systems for high-capacity environments.</p>
+                        </div>
+                    </div>
+
+                    <div class="sector-card">
+                        <div class="sector-card-image">
+                            <img src="{{ url_for('static', filename='images/Ganga-Ghat.jpg') }}" alt="Heritage">
+                        </div>
+                        <div class="sector-card-content">
+                            <h4>Places of Worship & Heritage</h4>
+                            <p>Sensitive AV solutions respecting architectural heritage.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category: Entertainment & Leisure -->
+            <div class="sector-category">
+                <h3 class="category-title">Entertainment & Leisure</h3>
+                <div class="sector-grid">
+                    <div class="sector-card">
+                        <div class="sector-card-image">
+                            <img src="{{ url_for('static', filename='images/cine.png') }}" alt="Cinema">
+                        </div>
+                        <div class="sector-card-content">
+                            <h4>Cinema Halls</h4>
+                            <p>Specialized AV and acoustic design for sound accuracy and immersion.</p>
+                        </div>
+                    </div>
+
+                    <div class="sector-card">
+                        <div class="sector-card-image">
+                            <img src="{{ url_for('static', filename='images/club.png') }}" alt="Clubs">
+                        </div>
+                        <div class="sector-card-content">
+                            <h4>Clubs & Lounges</h4>
+                            <p>Performance-driven sound and lighting for high-energy environments.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="expand-sectors-btn" id="expandBtn" onclick="toggleSectors()">
+            View All Sectors
+        </button>
+    </div>
+</section>
+
+<!-- CTA Section - Conversion Focused -->
+<section class="services-cta">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Ready to engineer<br>something exceptional?</h2>
+            <p>Every project begins with a conversation. Let's start yours.</p>
+            <div class="cta-buttons">
+                <a href="/contact" class="cta-btn-primary">Let's Talk →</a>
+                <a href="/process" class="cta-btn-secondary">View Our Process</a>
+            </div>
+            <div class="cta-contact-info">
+                <a href="tel:+919999762624" class="cta-contact-item">
+                    <span>📞</span> +91 99997 62624
+                </a>
+                <a href="mailto:INFO@AUDIONIXENGINEERS.COM" class="cta-contact-item">
+                    <span>✉</span> INFO@AUDIONIXENGINEERS.COM
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Parallax Hero Background
+    const heroBg = document.getElementById('heroBg');
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        if (scrolled < window.innerHeight) {
+            heroBg.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
+    });
+
+    // Intersection Observer for Scroll Animations
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Observe service cards and sector categories
+    document.querySelectorAll('.service-card, .sector-category').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Toggle Sectors Expansion
+    function toggleSectors() {
+        const additional = document.getElementById('additionalSectors');
+        const btn = document.getElementById('expandBtn');
+
+        if (additional.classList.contains('expanded')) {
+            additional.classList.remove('expanded');
+            btn.textContent = 'View All Sectors';
+            additional.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+            additional.classList.add('expanded');
+            btn.textContent = 'Show Less';
+        }
+    }
+</script>
 
 {% endblock %}

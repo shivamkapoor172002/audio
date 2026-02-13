@@ -471,7 +471,7 @@
             <div class="col-lg-7">
                 <div class="contact-form-container">
                     <div id="form-status" class="form-alert" style="display: none;"></div>
-                    <form id="contact-form" action="https://formspree.io/f/mbdagqnw" method="POST" class="contact-form">
+                    <form id="contact-form" action="https://formspree.io/f/xqedpndj" method="POST" class="contact-form">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="name">Your Name</label>
@@ -516,13 +516,13 @@
     const status = document.getElementById('form-status');
     const submitBtn = form.querySelector('.submit-btn');
 
-    form.addEventListener('submit', async function(event) {
+    form.addEventListener('submit', async function (event) {
         event.preventDefault();
         submitBtn.disabled = true;
         submitBtn.innerHTML = 'Sending...';
-        
+
         const data = new FormData(event.target);
-        
+
         try {
             const response = await fetch(event.target.action, {
                 method: form.method,
@@ -531,7 +531,7 @@
                     'Accept': 'application/json'
                 }
             });
-            
+
             if (response.ok) {
                 status.innerHTML = 'Thanks! Your message has been sent successfully.';
                 status.className = 'form-alert success';
@@ -559,4 +559,3 @@
     });
 </script>
 {% endblock %}
-
